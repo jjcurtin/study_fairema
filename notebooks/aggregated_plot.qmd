@@ -1,0 +1,206 @@
+---
+title: "Agregated metrics plot"
+author: "Coco Yu"
+editor_options: 
+  chunk_output_type: console
+params:
+  study: "ema"
+  window: "1day"
+  lead: 0
+  version: "v5"
+  cv: "nested"
+  model: "main" # "main" or "baseline"
+---
+
+### Set Up Environment
+
+Set up parameters as variables
+```{r}
+(study <- params$study)
+(window <- params$window)
+(lead <- params$lead)
+(version <- params$version)
+(cv <- params$cv)
+(model <- params$model)
+```
+
+Function conflicts
+```{r, packages_workflow}
+#| message: false
+#| warning: false
+#| include: false
+#| echo: false
+
+# source
+devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/fun_ml.R?raw=true")
+
+# handle conflicts
+options(conflicts.policy = "depends.ok")
+tidymodels_conflictRules()
+```
+
+Chunk Defaults
+```{r defaults}
+#| include: false
+
+knitr::opts_chunk$set(attr.output='style="max-height: 500px;"')
+
+options(tibble.width = Inf)
+options(tibble.print_max = Inf)
+```
+
+Packages for script
+```{r, packages_script}
+#| message: false
+#| warning: false
+#| include: false
+#| echo: false
+
+library(tidyverse)
+```
+
+Source support functions
+```{r source_functions}
+#| message: false
+#| warning: false
+#| include: false
+#| echo: false
+
+devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/format_path.R?raw=true")
+```
+
+Absolute paths
+```{r path}
+path_fairema <- format_path(str_c("studydata/risk/data_processed/fairema"))
+```
+
+### Read in data
+```{r data}
+df_gender <- read_csv(here::here(path_fairema, str_c("outer_preds_perf_", "gender", "_", window, 
+                                           "_", lead, "_", version, "_", cv, "_", model,
+                                           ".csv")),
+                      col_types = cols())
+df_gender$attribute <- "gender"
+
+df_race <- read_csv(here::here(path_fairema, str_c("outer_preds_perf_", "race", "_", window, 
+                                           "_", lead, "_", version, "_", cv, "_", model,
+                                           ".csv")),
+                    col_types = cols())
+df_race$attribute <- "race"
+
+df_income <- read_csv(here::here(path_fairema, str_c("outer_preds_perf_", "income", "_", window, 
+                                           "_", lead, "_", version, "_", cv, "_", model,
+                                           ".csv")),
+                      col_types = cols())
+df_income$attribute <- "income"
+
+df_age <- read_csv(here::here(path_fairema, str_c("outer_preds_perf_", "age", "_", window, 
+                                           "_", lead, "_", version, "_", cv, "_", model,
+                                           ".csv")),
+                   col_types = cols())
+df_age$attribute <- "age"
+```
+
+### Construct Plots
+
+```{r combine_dataframes}
+df <- rbind(df_gender, df_race, df_income, df_age) |> 
+  filter(group != "all")
+```
+
+```{r}
+df |> 
+  pivot_longer(-c("outer_split_num", "group", "attribute"),
+               names_to = "metrics", values_to = "score") |>
+  mutate(metrics = case_when(metrics == "balaccuracy" ~ "balanced accuracy",
+                             metrics != "balaccuracy" ~ metrics)) |>
+  ggplot(aes(x = attribute, y = score, fill = group)) +
+  geom_boxplot() +
+  facet_wrap(~metrics) +
+  theme_classic()
+
+plot1 <- df |> 
+  pivot_longer(-c("outer_split_num", "group", "attribute"),
+               names_to = "metrics", values_to = "score") |>
+  mutate(metrics = case_when(metrics == "balaccuracy" ~ "balanced accuracy",
+                             metrics != "balaccuracy" ~ metrics)) |>
+  filter(metrics == "auroc" | metrics == "balanced accuracy") |>
+  ggplot(aes(x = attribute, y = score, fill = group)) +
+  geom_boxplot() +
+  facet_wrap(~metrics) +
+  theme_classic()
+
+plot2 <- df |> 
+  pivot_longer(-c("outer_split_num", "group", "attribute"),
+               names_to = "metrics", values_to = "score") |>
+  filter(metrics != "auroc" & metrics != "balaccuracy") |>
+  ggplot(aes(x = attribute, y = score, fill = group)) +
+  geom_boxplot() +
+  facet_wrap(~metrics) +
+  theme_classic()
+
+ggpubr::ggarrange(plot1, plot2, nrow = 2, common.legend = TRUE)
+```
+
+
+```{r}
+df |> 
+  pivot_longer(-c("outer_split_num", "group", "attribute"),
+               names_to = "metrics", values_to = "score") |>
+  mutate(metrics = case_when(metrics == "balaccuracy" ~ "balanced accuracy",
+                             metrics != "balaccuracy" ~ metrics),
+         group = if_else(
+           group %in% c("Female", "non_white", "below_poverty", "older"),
+           "Unprivileged",
+           "Protected"
+         )) |>
+  ggplot(aes(x = attribute, y = score, fill = group)) +
+  geom_boxplot() +
+  facet_wrap(~metrics) +
+  scale_fill_manual(values = c("Protected" = "darkgreen", 
+                                "Unprivileged" = "red")) +
+  theme_classic()
+
+plot3 <- df |> 
+  pivot_longer(-c("outer_split_num", "group", "attribute"),
+               names_to = "metrics", values_to = "score") |>
+  mutate(metrics = case_when(metrics == "balaccuracy" ~ "balanced accuracy",
+                             metrics != "balaccuracy" ~ metrics),
+         group = if_else(
+           group %in% c("Female", "non_white", "below_poverty", "older"),
+           "Unprivileged",
+           "Protected"
+         )) |>
+  filter(metrics == "auroc" | metrics == "balanced accuracy") |>
+  ggplot(aes(x = attribute, y = score, fill = group)) +
+  geom_boxplot() +
+  facet_wrap(~metrics) +
+  scale_fill_manual(values = c("Protected" = "darkgreen", 
+                                "Unprivileged" = "red")) +
+  theme_classic() + labs(fill = NULL) + ylim(0, 1)
+
+plot4 <- df |> 
+  pivot_longer(-c("outer_split_num", "group", "attribute"),
+               names_to = "metrics", values_to = "score") |>
+  mutate(group = if_else(
+    group %in% c("Female", "non_white", "below_poverty", "older"),
+    "Unprivileged",
+    "Protected"
+         )) |>
+  filter(metrics != "auroc" & metrics != "balaccuracy") |>
+  ggplot(aes(x = attribute, y = score, fill = group)) +
+  geom_boxplot() +
+  facet_wrap(~metrics) +
+  scale_fill_manual(values = c("Protected" = "darkgreen", 
+                                "Unprivileged" = "red")) +
+  theme_classic() + labs(fill = NULL) + ylim(0, 1)
+
+ggpubr::ggarrange(plot3, plot4, nrow = 2, common.legend = TRUE)
+```
+
+```{r}
+#| label: final_plot
+
+ggpubr::ggarrange(plot3, plot4, nrow = 2, common.legend = TRUE)
+```
+
