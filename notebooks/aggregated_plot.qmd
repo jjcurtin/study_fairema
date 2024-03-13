@@ -25,11 +25,7 @@ Set up parameters as variables
 ```
 
 Function conflicts
-```{r, packages_workflow}
-#| message: false
-#| warning: false
-#| include: false
-#| echo: false
+```{r}
 
 # source
 devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/fun_ml.R?raw=true")
@@ -40,9 +36,7 @@ tidymodels_conflictRules()
 ```
 
 Chunk Defaults
-```{r defaults}
-#| include: false
-
+```{r}
 knitr::opts_chunk$set(attr.output='style="max-height: 500px;"')
 
 options(tibble.width = Inf)
@@ -50,22 +44,13 @@ options(tibble.print_max = Inf)
 ```
 
 Packages for script
-```{r, packages_script}
-#| message: false
-#| warning: false
-#| include: false
-#| echo: false
+```{r}
 
 library(tidyverse)
 ```
 
 Source support functions
-```{r source_functions}
-#| message: false
-#| warning: false
-#| include: false
-#| echo: false
-
+```{r}
 devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/format_path.R?raw=true")
 ```
 
@@ -103,7 +88,7 @@ df_age$attribute <- "age"
 
 ### Construct Plots
 
-```{r combine_dataframes}
+```{r}
 df <- rbind(df_gender, df_race, df_income, df_age) |> 
   filter(group != "all")
 ```

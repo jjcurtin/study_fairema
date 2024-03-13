@@ -250,29 +250,25 @@
 </div></div>
 <p>Function conflicts</p>
 <div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># source</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">source_url</span>(<span class="st">"https://github.com/jjcurtin/lab_support/blob/main/fun_ml.R?raw=true"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># source</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">source_url</span>(<span class="st">"https://github.com/jjcurtin/lab_support/blob/main/fun_ml.R?raw=true"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>ℹ SHA-1 hash of file is "77e91675366f10788c6bcb59fa1cfc9ee0c75281"</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># handle conflicts</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">conflicts.policy =</span> <span class="st">"depends.ok"</span>)</span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tidymodels_conflictRules</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># handle conflicts</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">conflicts.policy =</span> <span class="st">"depends.ok"</span>)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tidymodels_conflictRules</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
 <p>Chunk Defaults</p>
 <div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">attr.output=</span><span class="st">'style="max-height: 500px;"'</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">tibble.width =</span> <span class="cn">Inf</span>)</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">tibble.print_max =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">attr.output=</span><span class="st">'style="max-height: 500px;"'</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">tibble.width =</span> <span class="cn">Inf</span>)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">tibble.print_max =</span> <span class="cn">Inf</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
 <p>Packages for script</p>
 <div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.2     ✔ readr     2.1.4
@@ -288,8 +284,7 @@
 </div></div>
 <p>Source support functions</p>
 <div class="cell-container"><div class="cell-decorator"><pre>In [5]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">source_url</span>(<span class="st">"https://github.com/jjcurtin/lab_support/blob/main/format_path.R?raw=true"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">source_url</span>(<span class="st">"https://github.com/jjcurtin/lab_support/blob/main/format_path.R?raw=true"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>ℹ SHA-1 hash of file is "a58e57da996d1b70bb9a5b58241325d6fd78890f"</code></pre>
 </div>
@@ -346,7 +341,7 @@
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="aggregated_plot_files/figure-html/unnamed-chunk-2-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="aggregated_plot_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="aggregated_plot_files/figure-html/unnamed-chunk-7-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="aggregated_plot_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -374,7 +369,7 @@
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="aggregated_plot_files/figure-html/unnamed-chunk-2-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="aggregated_plot_files/figure-html/unnamed-chunk-2-2.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="aggregated_plot_files/figure-html/unnamed-chunk-7-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="aggregated_plot_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -399,7 +394,7 @@
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="aggregated_plot_files/figure-html/unnamed-chunk-3-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="aggregated_plot_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="aggregated_plot_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="aggregated_plot_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -441,7 +436,7 @@
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="aggregated_plot_files/figure-html/unnamed-chunk-3-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="aggregated_plot_files/figure-html/unnamed-chunk-3-2.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="aggregated_plot_files/figure-html/unnamed-chunk-8-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="aggregated_plot_files/figure-html/unnamed-chunk-8-2.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -845,7 +840,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"selector":".lightbox","openEffect":"zoom","loop":false,"closeEffect":"zoom","descPosition":"bottom"});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"loop":false,"descPosition":"bottom","closeEffect":"zoom","openEffect":"zoom","selector":".lightbox"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;
