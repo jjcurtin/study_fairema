@@ -61,11 +61,11 @@ path_fairema <- format_path(str_c("studydata/risk/data_processed/fairema"))
 
 ### Read in data
 ```{r data}
-df_gender <- read_csv(here::here(path_fairema, str_c("outer_preds_perf_", "gender", "_", window, 
+df_sex <- read_csv(here::here(path_fairema, str_c("outer_preds_perf_", "sex", "_", window, 
                                            "_", lead, "_", version, "_", cv, "_", model,
                                            ".csv")),
                       col_types = cols())
-df_gender$attribute <- "gender"
+df_sex$attribute <- "sex"
 
 df_race <- read_csv(here::here(path_fairema, str_c("outer_preds_perf_", "race", "_", window, 
                                            "_", lead, "_", version, "_", cv, "_", model,
@@ -89,44 +89,10 @@ df_age$attribute <- "age"
 ### Construct Plots
 
 ```{r}
-df <- rbind(df_gender, df_race, df_income, df_age) |> 
-  filter(group != "all")
+df <- rbind(df_sex, df_race, df_income, df_age) |> 
+  filter(group != "all", n_lapses != 0) |> 
+  select(-n_lapses)
 ```
-
-```{r}
-df |> 
-  pivot_longer(-c("outer_split_num", "group", "attribute"),
-               names_to = "metrics", values_to = "score") |>
-  mutate(metrics = case_when(metrics == "balaccuracy" ~ "balanced accuracy",
-                             metrics != "balaccuracy" ~ metrics)) |>
-  ggplot(aes(x = attribute, y = score, fill = group)) +
-  geom_boxplot() +
-  facet_wrap(~metrics) +
-  theme_classic()
-
-plot1 <- df |> 
-  pivot_longer(-c("outer_split_num", "group", "attribute"),
-               names_to = "metrics", values_to = "score") |>
-  mutate(metrics = case_when(metrics == "balaccuracy" ~ "balanced accuracy",
-                             metrics != "balaccuracy" ~ metrics)) |>
-  filter(metrics == "auroc" | metrics == "balanced accuracy") |>
-  ggplot(aes(x = attribute, y = score, fill = group)) +
-  geom_boxplot() +
-  facet_wrap(~metrics) +
-  theme_classic()
-
-plot2 <- df |> 
-  pivot_longer(-c("outer_split_num", "group", "attribute"),
-               names_to = "metrics", values_to = "score") |>
-  filter(metrics != "auroc" & metrics != "balaccuracy") |>
-  ggplot(aes(x = attribute, y = score, fill = group)) +
-  geom_boxplot() +
-  facet_wrap(~metrics) +
-  theme_classic()
-
-ggpubr::ggarrange(plot1, plot2, nrow = 2, common.legend = TRUE)
-```
-
 
 ```{r}
 df |> 
@@ -137,55 +103,14 @@ df |>
          group = if_else(
            group %in% c("Female", "non_white", "below_poverty", "older"),
            "Unprivileged",
-           "Protected"
+           "Privileged"
          )) |>
-  ggplot(aes(x = attribute, y = score, fill = group)) +
-  geom_boxplot() +
-  facet_wrap(~metrics) +
-  scale_fill_manual(values = c("Protected" = "darkgreen", 
-                                "Unprivileged" = "red")) +
-  theme_classic()
-
-plot3 <- df |> 
-  pivot_longer(-c("outer_split_num", "group", "attribute"),
-               names_to = "metrics", values_to = "score") |>
-  mutate(metrics = case_when(metrics == "balaccuracy" ~ "balanced accuracy",
-                             metrics != "balaccuracy" ~ metrics),
-         group = if_else(
-           group %in% c("Female", "non_white", "below_poverty", "older"),
-           "Unprivileged",
-           "Protected"
-         )) |>
-  filter(metrics == "auroc" | metrics == "balanced accuracy") |>
-  ggplot(aes(x = attribute, y = score, fill = group)) +
-  geom_boxplot() +
-  facet_wrap(~metrics) +
-  scale_fill_manual(values = c("Protected" = "darkgreen", 
-                                "Unprivileged" = "red")) +
-  theme_classic() + labs(fill = NULL) + ylim(0, 1)
-
-plot4 <- df |> 
-  pivot_longer(-c("outer_split_num", "group", "attribute"),
-               names_to = "metrics", values_to = "score") |>
-  mutate(group = if_else(
-    group %in% c("Female", "non_white", "below_poverty", "older"),
-    "Unprivileged",
-    "Protected"
-         )) |>
-  filter(metrics != "auroc" & metrics != "balaccuracy") |>
-  ggplot(aes(x = attribute, y = score, fill = group)) +
-  geom_boxplot() +
-  facet_wrap(~metrics) +
-  scale_fill_manual(values = c("Protected" = "darkgreen", 
-                                "Unprivileged" = "red")) +
-  theme_classic() + labs(fill = NULL) + ylim(0, 1)
-
-ggpubr::ggarrange(plot3, plot4, nrow = 2, common.legend = TRUE)
-```
-
-```{r}
-#| label: final_plot
-
-ggpubr::ggarrange(plot3, plot4, nrow = 2, common.legend = TRUE)
+  ggplot(aes(x = metrics, y = score, fill = group)) +
+  geom_boxplot(outlier.size = .8) +
+  facet_wrap(~attribute) +
+  scale_fill_manual(values = c("Privileged" = "darkgreen",
+                               "Unprivileged" = "red")) +
+  theme_classic() + 
+  theme(axis.text.x=element_text(angle = 35, vjust = 0.7))
 ```
 
