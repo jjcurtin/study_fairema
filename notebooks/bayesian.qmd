@@ -79,7 +79,7 @@ path_fairema <- format_path(str_c("studydata/risk/data_processed/fairema"))
 ### Bayesian Analysis
 
 ```{r function}
-contrast_table <- function(df, met){
+contrast_table <- function(df, met, levels){
   df |> 
     filter(group != "all") |>
     select(c(met, "group", "outer_split_num")) |> 
@@ -97,56 +97,65 @@ contrast_table <- function(df, met){
              adapt_delta = .99,
              # cores = 4, seed = 12345,
              family = gaussian, verbose = FALSE) |> 
-    contrast_models() |> 
+    contrast_models(list_1 = levels[1], list_2 = levels[2]) |> 
     summary(size = 0) |> 
     mutate(metrics = met, .before = contrast)
   }
 ```
 
 
-```{r gender}
-df_gender <- read_csv(here::here(path_fairema, str_c("outer_preds_perf_", "gender", "_", window, 
-                                           "_", lead, "_", version, "_", cv, "_", model,
-                                           ".csv")),
-                      col_types = cols())
+```{r sex}
+df_sex <- read_csv(here::here(path_fairema, str_c("outer_preds_perf_", "sex", 
+                                                  "_", window, "_", lead, "_", 
+                                                  version, "_", cv, "_", model,
+                                                  ".csv")),
+                      col_types = cols()) |> 
+  filter(group != "all", n_lapses != 0) |> 
+  select(-n_lapses)
 
 rbind(
-  contrast_table(df_gender, "auroc"),
-  contrast_table(df_gender, "sensitivity"),
-  contrast_table(df_gender, "specificity"),
-  contrast_table(df_gender, "ppv"),
-  contrast_table(df_gender, "balaccuracy")
+  contrast_table(df_sex, "auroc", c("Male", "Female")),
+  contrast_table(df_sex, "sensitivity", c("Male", "Female")),
+  contrast_table(df_sex, "specificity", c("Male", "Female")),
+  contrast_table(df_sex, "ppv", c("Male", "Female")),
+  contrast_table(df_sex, "balaccuracy", c("Male", "Female"))
 )
 ```
 
 ```{r race}
-df_race <- read_csv(here::here(path_fairema, str_c("outer_preds_perf_", "race", "_", window, 
-                                           "_", lead, "_", version, "_", cv, "_", model,
-                                           ".csv")),
-                    col_types = cols())
+df_race <- read_csv(here::here(path_fairema, str_c("outer_preds_perf_", "race", 
+                                                   "_", window, "_", lead, "_", 
+                                                   version, "_", cv, "_", model,
+                                                   ".csv")),
+                    col_types = cols()) |> 
+  filter(group != "all", n_lapses != 0) |> 
+  select(-n_lapses)
 
 rbind(
-  contrast_table(df_race, "auroc"),
-  contrast_table(df_race, "sensitivity"),
-  contrast_table(df_race, "specificity"),
-  contrast_table(df_race, "ppv"),
-  contrast_table(df_race, "balaccuracy")
+  contrast_table(df_race, "auroc", c("white", "non_white")),
+  contrast_table(df_race, "sensitivity", c("white", "non_white")),
+  contrast_table(df_race, "specificity", c("white", "non_white")),
+  contrast_table(df_race, "ppv", c("white", "non_white")),
+  contrast_table(df_race, "balaccuracy", c("white", "non_white"))
 )
 ```
 
 
 ```{r income}
-df_income <- read_csv(here::here(path_fairema, str_c("outer_preds_perf_", "income", "_", window, 
-                                           "_", lead, "_", version, "_", cv, "_", model,
-                                           ".csv")),
-                      col_types = cols())
+df_income <- read_csv(here::here(path_fairema, str_c("outer_preds_perf_", 
+                                                     "income", "_", window, "_", 
+                                                     lead, "_", version, "_", cv, 
+                                                     "_", model, ".csv")),
+                      col_types = cols()) |> 
+  filter(group != "all", n_lapses != 0) |> 
+  select(-n_lapses)
 
 rbind(
-  contrast_table(df_income, "auroc"),
-  contrast_table(df_income, "sensitivity"),
-  contrast_table(df_income, "specificity"),
-  contrast_table(df_income, "ppv"),
-  contrast_table(df_income, "balaccuracy")
+  contrast_table(df_income, "auroc", c("above_poverty", "below_poverty")),
+  contrast_table(df_income, "sensitivity", c("above_poverty", "below_poverty")),
+  contrast_table(df_income, "specificity", c("above_poverty", "below_poverty")),
+  contrast_table(df_income, "ppv", c("above_poverty", "below_poverty")),
+  contrast_table(df_income, "balaccuracy", c("above_poverty", "below_poverty"))
 )
 ```
 
@@ -155,14 +164,16 @@ rbind(
 df_age <- read_csv(here::here(path_fairema, str_c("outer_preds_perf_", "age", "_", window, 
                                            "_", lead, "_", version, "_", cv, "_", model,
                                            ".csv")),
-                   col_types = cols())
+                   col_types = cols()) |> 
+  filter(group != "all", n_lapses != 0) |> 
+  select(-n_lapses)
 
 rbind(
-  contrast_table(df_age, "auroc"),
-  contrast_table(df_age, "sensitivity"),
-  contrast_table(df_age, "specificity"),
-  contrast_table(df_age, "ppv"),
-  contrast_table(df_age, "balaccuracy")
+  contrast_table(df_age, "auroc", c("younger", "older")),
+  contrast_table(df_age, "sensitivity", c("younger", "older")),
+  contrast_table(df_age, "specificity", c("younger", "older")),
+  contrast_table(df_age, "ppv", c("younger", "older")),
+  contrast_table(df_age, "balaccuracy", c("younger", "older"))
 )
 ```
 

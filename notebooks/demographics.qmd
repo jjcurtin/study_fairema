@@ -1,0 +1,121 @@
+---
+title: "Create Demographics Summary"
+author: "Coco Yu"
+editor_options:
+  chunk_output_type: console
+params:
+  study: "ema"
+  window: "1day"
+  lead: 0
+  version: "v5"
+  cv: "nested"
+  model: "main"
+---
+
+### Set Up Environment
+
+Set up parameters as variables
+```{r}
+(study <- params$study)
+(window <- params$window)
+(lead <- params$lead)
+(version <- params$version)
+(cv <- params$cv)
+(model <- params$model)
+```
+
+Function conflicts
+```{r, packages_workflow}
+#| message: false
+#| warning: false
+#| include: false
+#| echo: false
+
+# source function
+devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/fun_ml.R?raw=true")
+
+# handle conflicts
+options(conflicts.policy = "depends.ok")
+tidymodels_conflictRules()
+```
+
+Chunk Defaults
+```{r defaults}
+#| include: false
+
+knitr::opts_chunk$set(attr.output='style="max-height: 500px;"')
+
+options(tibble.width = Inf)
+options(tibble.print_max = Inf)
+```
+
+Packages for script
+```{r, packages_script}
+#| message: false
+#| warning: false
+#| include: false
+#| echo: false
+
+library(tidyverse)
+```
+
+Source support functions
+```{r source_functions}
+#| message: false
+#| warning: false
+#| include: false
+#| echo: false
+
+devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/format_path.R?raw=true")
+devtools::source_url("https://github.com/jjcurtin/lab_support/blob/main/fun_eda.R?raw=true")
+```
+
+Absolute paths
+```{r path}
+path_fairema <- format_path(str_c("studydata/risk/data_processed/fairema"))
+```
+
+### Read in data
+
+```{r}
+df <- read_csv(here::here(path_fairema, str_c("outer_preds_with_demo_", window, "_", lead,
+                                               "_", version, "_", cv, "_", model, ".csv")),
+               col_types = cols()) |> 
+  mutate(label = factor(label, levels = c("Lapse", "No lapse")),
+         predicted = factor(predicted, levels = c("Lapse", "No lapse"))) |> glimpse()
+```
+
+### Create Table
+```{r}
+demographics <- df |> 
+  select(c("dem_2", "race", "income", "age", "subid")) |> 
+  rename(sex = dem_2) |>
+  unique() |> 
+  select(-subid) |> 
+  glimpse()
+```
+
+```{r}
+output <- rbind(
+  data.frame(table(demographics$sex)),
+  data.frame(table(demographics$race)),
+  data.frame(table(demographics$income)),
+  data.frame(table(demographics$age))
+)
+
+output$demographics <- rep(c("sex", "race", "income", "age"), each = 2)
+output <- output |> 
+  rename(subgroup = Var1, N = Freq) |> 
+  relocate(demographics)
+output <- output[c(2, 1, 4, 3, 5, 6, 8, 7),]
+output |> print_kbl()
+```
+
+```{r}
+ggplot(output, aes(subgroup, N, fill=demographics)) +
+  geom_col() +
+  theme_classic() +
+  theme(axis.text.x=element_text(angle = 30, vjust = 0.7)) +
+  scale_fill_brewer(palette = "Dark2")
+```
+
