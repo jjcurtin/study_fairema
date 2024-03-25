@@ -45,7 +45,6 @@ options(tibble.print_max = Inf)
 
 Packages for script
 ```{r}
-
 library(tidyverse)
 ```
 
