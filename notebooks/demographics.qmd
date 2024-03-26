@@ -128,14 +128,14 @@ ggplot(data = output,
        aes(x = "", y = N, fill = subgroup)) + 
   geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0) +
-  scale_fill_manual(values = c("Male" = "darkgreen",
-                               "Female" = "red",
-                               "white" = "darkgreen",
-                               "non_white" = "red",
-                               "above_poverty" = "darkgreen",
-                               "below_poverty" = "red",
-                               "younger" = "darkgreen",
-                               "older" = "red")) +
+  scale_fill_manual(values = c("Male" = "#6CAA2F",
+                               "Female" = "#C23E28",
+                               "white" = "#6CAA2F",
+                               "non_white" = "#C23E28",
+                               "above_poverty" = "#6CAA2F",
+                               "below_poverty" = "#C23E28",
+                               "younger" = "#6CAA2F",
+                               "older" = "#C23E28")) +
   geom_text(aes(label = subgroup), position = position_stack(vjust = 0.5)) +
   theme_void() +
   theme(legend.position="none") +
@@ -162,8 +162,8 @@ output |>
   ggplot(aes(x = "", y = N, fill = subgroup)) + 
   geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0) +
-  scale_fill_manual(values = c("privileged" = "darkgreen",
-                               "unprivileged" = "red")) +
+  scale_fill_manual(values = c("privileged" = "#6CAA2F",
+                               "unprivileged" = "#C23E28")) +
   geom_text(aes(label = subgroup), position = position_stack(vjust = 0.5)) +
   theme_void() +
   theme(legend.position="none") +
@@ -192,8 +192,8 @@ plot1 <- ggplot(data = data.frame(table(demographics$sex)),
        aes(x = "", y = Freq, fill = Var1)) + 
   geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0) +
-  scale_fill_manual(values = c("Male" = "darkgreen",
-                               "Female" = "red")) +
+  scale_fill_manual(values = c("Male" = "#6CAA2F",
+                               "Female" = "#C23E28")) +
   geom_text(aes(label = Var1), position = position_stack(vjust = 0.5)) +
   theme_void() +
   theme(legend.position="none")
@@ -203,8 +203,8 @@ plot2 <- ggplot(data = data.frame(table(demographics$race)),
        aes(x = "", y = Freq, fill = Var1)) + 
   geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0) +
-  scale_fill_manual(values = c("white" = "darkgreen",
-                               "non_white" = "red")) +
+  scale_fill_manual(values = c("white" = "#6CAA2F",
+                               "non_white" = "#C23E28")) +
   geom_text(aes(label = Var1), position = position_stack(vjust = 0.5)) +
   theme_void() +
   theme(legend.position="none")
@@ -214,8 +214,8 @@ plot3 <- ggplot(data = data.frame(table(demographics$income)),
        aes(x = "", y = Freq, fill = Var1)) + 
   geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0) +
-  scale_fill_manual(values = c("above_poverty" = "darkgreen",
-                               "below_poverty" = "red")) +
+  scale_fill_manual(values = c("above_poverty" = "#6CAA2F",
+                               "below_poverty" = "#C23E28")) +
   geom_text(aes(label = Var1), position = position_stack(vjust = 0.5)) +
   theme_void() +
   theme(legend.position="none")
@@ -225,8 +225,8 @@ plot4 <- ggplot(data = data.frame(table(demographics$age)),
        aes(x = "", y = Freq, fill = Var1)) + 
   geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0) +
-  scale_fill_manual(values = c("younger" = "darkgreen",
-                               "older" = "red")) +
+  scale_fill_manual(values = c("younger" = "#6CAA2F",
+                               "older" = "#C23E28")) +
   geom_text(aes(label = Var1), position = position_stack(vjust = 0.5)) +
   theme_void() +
   theme(legend.position="none")
