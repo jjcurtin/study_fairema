@@ -135,9 +135,13 @@ output_plot <- function(df){
       ggplot(aes(x = "", y = score, fill = group)) +
       geom_boxplot(outlier.size = .8) +
       facet_wrap(~metrics) +
-      theme_void() +
-      theme(axis.text.y = element_text(size = 8),
-            strip.text = element_text(size = 12),
+      theme_classic() +
+      theme(axis.title.y = element_blank(),
+            axis.ticks.y = element_blank(),
+            axis.line.y = element_blank(),
+            axis.text.y = element_text(margin = margin(r = -12)),
+            axis.line.x = element_blank(),
+            axis.ticks.x = element_blank(),
             plot.margin = margin(10, 50, 10, 50, "pt")) +
       scale_fill_manual(values = c("Privileged" = "#6CAA2F",
                                    "Unprivileged" = "#C23E28")) +
@@ -147,9 +151,13 @@ output_plot <- function(df){
       ggplot(aes(x = "", y = score, fill = group)) +
       geom_boxplot(outlier.size = .8) +
       facet_wrap(~metrics) +
-      theme_void() +
-      theme(axis.text.y = element_text(size = 8),
-            strip.text = element_text(size = 12),
+      theme_classic() +
+      theme(axis.title.y = element_blank(),
+            axis.ticks.y = element_blank(),
+            axis.line.y = element_blank(),
+            axis.text.y = element_text(margin = margin(r = -12)),
+            axis.line.x = element_blank(),
+            axis.ticks.x = element_blank(),
             plot.margin = margin(10, 50, 10, 50, "pt")) +
       scale_fill_manual(values = c("Privileged" = "#6CAA2F",
                                    "Unprivileged" = "#C23E28")) +
@@ -184,4 +192,3 @@ ggarrange(
   annotate_figure(output_plot(df_age), top = text_grob("Age", face = "bold"))
 )
 ```
-
