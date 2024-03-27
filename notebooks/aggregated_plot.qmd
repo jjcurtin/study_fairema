@@ -192,3 +192,4 @@ ggarrange(
   annotate_figure(output_plot(df_age), top = text_grob("Age", face = "bold"))
 )
 ```
+
