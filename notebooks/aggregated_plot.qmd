@@ -45,8 +45,8 @@ options(tibble.print_max = Inf)
 
 Packages for script
 ```{r}
-
 library(tidyverse)
+library(ggpubr)
 ```
 
 Source support functions
@@ -84,33 +84,112 @@ df_age <- read_csv(here::here(path_fairema, str_c("outer_preds_perf_", "age", "_
                                            ".csv")),
                    col_types = cols())
 df_age$attribute <- "age"
+
+df <- rbind(df_sex, df_race, df_income, df_age)
+```
+
+### Make Dataframes for plots
+```{r}
+mak_df_plot <- function(df){
+  df |> 
+    filter(group != "all", n_lapses != 0) |> 
+    select(-n_lapses) |> 
+    pivot_longer(-c("outer_split_num", "group", "attribute"),
+               names_to = "metrics", values_to = "score") |>
+    mutate(metrics = case_when(metrics == "balaccuracy" ~ "balanced accuracy",
+                               metrics != "balaccuracy" ~ metrics),
+           group = if_else(
+             group %in% c("Female", "non_white", "below_poverty", "older"),
+             "Unprivileged",
+             "Privileged"
+           )) |> 
+    mutate(metrics = if_else(metrics == "prauc", "auPRC", metrics))
+}
+```
+
+```{r}
+df_sex <- mak_df_plot(df_sex)
+df_race <- mak_df_plot(df_race)
+df_income <- mak_df_plot(df_income)
+df_age <- mak_df_plot(df_age)
+df <- mak_df_plot(df)
 ```
 
 ### Construct Plots
-
-```{r}
-df <- rbind(df_sex, df_race, df_income, df_age) |> 
-  filter(group != "all", n_lapses != 0) |> 
-  select(-n_lapses)
-```
-
 ```{r}
 df |> 
-  pivot_longer(-c("outer_split_num", "group", "attribute"),
-               names_to = "metrics", values_to = "score") |>
-  mutate(metrics = case_when(metrics == "balaccuracy" ~ "balanced accuracy",
-                             metrics != "balaccuracy" ~ metrics),
-         group = if_else(
-           group %in% c("Female", "non_white", "below_poverty", "older"),
-           "Unprivileged",
-           "Privileged"
-         )) |>
   ggplot(aes(x = metrics, y = score, fill = group)) +
   geom_boxplot(outlier.size = .8) +
   facet_wrap(~attribute) +
-  scale_fill_manual(values = c("Privileged" = "darkgreen",
-                               "Unprivileged" = "red")) +
+  scale_fill_manual(values = c("Privileged" = "#6CAA2F",
+                               "Unprivileged" = "#C23E28")) +
   theme_classic() + 
   theme(axis.text.x=element_text(angle = 35, vjust = 0.7))
+```
+
+```{r}
+output_plot <- function(df){
+  ggarrange(
+    df |> 
+      filter(metrics %in% c("auroc", "auPRC")) |> 
+      ggplot(aes(x = "", y = score, fill = group)) +
+      geom_boxplot(outlier.size = .8) +
+      facet_wrap(~metrics) +
+      theme_classic() +
+      theme(axis.title.y = element_blank(),
+            axis.ticks.y = element_blank(),
+            axis.line.y = element_blank(),
+            axis.text.y = element_text(margin = margin(r = -12)),
+            axis.line.x = element_blank(),
+            axis.ticks.x = element_blank(),
+            plot.margin = margin(10, 50, 10, 50, "pt")) +
+      scale_fill_manual(values = c("Privileged" = "#6CAA2F",
+                                   "Unprivileged" = "#C23E28")) +
+      labs(x = NULL),
+    df |> 
+      filter(metrics %in% c("sensitivity", "specificity", "ppv")) |> 
+      ggplot(aes(x = "", y = score, fill = group)) +
+      geom_boxplot(outlier.size = .8) +
+      facet_wrap(~metrics) +
+      theme_classic() +
+      theme(axis.title.y = element_blank(),
+            axis.ticks.y = element_blank(),
+            axis.line.y = element_blank(),
+            axis.text.y = element_text(margin = margin(r = -12)),
+            axis.line.x = element_blank(),
+            axis.ticks.x = element_blank(),
+            plot.margin = margin(10, 50, 10, 50, "pt")) +
+      scale_fill_manual(values = c("Privileged" = "#6CAA2F",
+                                   "Unprivileged" = "#C23E28")) +
+      labs(x = NULL),
+    nrow = 2,
+    common.legend = TRUE,
+    legend = "bottom",
+    widths = c(2, 3)
+  )
+}
+```
+
+```{r}
+output_plot(df_sex) |> 
+  annotate_figure(top = text_grob("Sex", face = "bold"))
+
+output_plot(df_race) |> 
+  annotate_figure(top = text_grob("Race", face = "bold"))
+
+output_plot(df_income) |> 
+  annotate_figure(top = text_grob("Income", face = "bold"))
+
+output_plot(df_age) |> 
+  annotate_figure(top = text_grob("Age", face = "bold"))
+```
+
+```{r}
+ggarrange(
+  annotate_figure(output_plot(df_sex), top = text_grob("Sex", face = "bold")),
+  annotate_figure(output_plot(df_race), top = text_grob("Race", face = "bold")),
+  annotate_figure(output_plot(df_income), top = text_grob("Income", face = "bold")),
+  annotate_figure(output_plot(df_age), top = text_grob("Age", face = "bold"))
+)
 ```
 
