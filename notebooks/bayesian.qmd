@@ -115,6 +115,7 @@ df_sex <- read_csv(here::here(path_fairema, str_c("outer_preds_perf_", "sex",
 
 rbind(
   contrast_table(df_sex, "auroc", c("Male", "Female")),
+  contrast_table(df_sex, "prauc", c("Male", "Female")),
   contrast_table(df_sex, "sensitivity", c("Male", "Female")),
   contrast_table(df_sex, "specificity", c("Male", "Female")),
   contrast_table(df_sex, "ppv", c("Male", "Female")),
@@ -133,6 +134,7 @@ df_race <- read_csv(here::here(path_fairema, str_c("outer_preds_perf_", "race",
 
 rbind(
   contrast_table(df_race, "auroc", c("white", "non_white")),
+  contrast_table(df_race, "prauc", c("white", "non_white")),
   contrast_table(df_race, "sensitivity", c("white", "non_white")),
   contrast_table(df_race, "specificity", c("white", "non_white")),
   contrast_table(df_race, "ppv", c("white", "non_white")),
@@ -152,6 +154,7 @@ df_income <- read_csv(here::here(path_fairema, str_c("outer_preds_perf_",
 
 rbind(
   contrast_table(df_income, "auroc", c("above_poverty", "below_poverty")),
+  contrast_table(df_income, "prauc", c("above_poverty", "below_poverty")),
   contrast_table(df_income, "sensitivity", c("above_poverty", "below_poverty")),
   contrast_table(df_income, "specificity", c("above_poverty", "below_poverty")),
   contrast_table(df_income, "ppv", c("above_poverty", "below_poverty")),
@@ -170,6 +173,7 @@ df_age <- read_csv(here::here(path_fairema, str_c("outer_preds_perf_", "age", "_
 
 rbind(
   contrast_table(df_age, "auroc", c("younger", "older")),
+  contrast_table(df_age, "prauc", c("younger", "older")),
   contrast_table(df_age, "sensitivity", c("younger", "older")),
   contrast_table(df_age, "specificity", c("younger", "older")),
   contrast_table(df_age, "ppv", c("younger", "older")),

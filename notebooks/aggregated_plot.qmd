@@ -171,6 +171,7 @@ output_plot <- function(df){
 ```
 
 ```{r}
+#| label: bar_plot
 output_plot(df_sex) |> 
   annotate_figure(top = text_grob("Sex", face = "bold"))
 

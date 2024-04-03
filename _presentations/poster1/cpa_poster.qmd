@@ -1,0 +1,46 @@
+---
+title: This is an academic poster with typst and quarto!
+format:
+  poster-typst: 
+    size: "36x24"
+    poster-authors: "Yu, J., Wyant, K., Sant’Ana, S. J., Fronk, G. E., Curtin, J. J."
+    departments: "Department of Psychology"
+    institution-logo: "./images/ncstate.png"
+    footer-text: "posit::conf 2023"
+    footer-url: "https://posit.co/conference/"
+    footer-emails: "abc@example.com"
+    footer-color: "ebcfb2"
+    keywords: ["Typesetting", "Typst", "Quarto"]
+---
+
+# Background
+
+## Predicting Alcohol Lapse via EMA
+
+# Methods
+
+-   Sensitive Attributes
+
+    -   sex: Female vs. Male
+    
+    -   race: White vs. People of Color
+    
+    -   income: 50% of median personal income in Madison ($15k)
+    
+    -   age: 55 or older
+
+-   Performance Metrics
+
+    -   auROC, auPRC, PPV, sensitivity, specificity
+    
+-   Statistical Analysis
+
+    -   Bayesian generalized mixed effect models 
+
+# Results
+
+{{< embed ../../notebooks/demographics.qmd#pie_chart_pivileged/unprivileged >}}
+
+{{< embed ../../notebooks/aggregated_plot.qmd#bar_plot >}}
+
+# Conclusion
