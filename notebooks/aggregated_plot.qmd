@@ -128,7 +128,8 @@ df |>
 ```
 
 ```{r}
-output_plot <- function(df){
+output_plot <- function(df, legend_text){
+  sig_marks <- c("", "*", "**", "***", "")
   ggarrange(
     df |> 
       filter(metrics %in% c("auroc", "auPRC")) |> 
@@ -143,8 +144,11 @@ output_plot <- function(df){
             axis.line.x = element_blank(),
             axis.ticks.x = element_blank(),
             plot.margin = margin(10, 50, 10, 50, "pt")) +
-      scale_fill_manual(values = c("Privileged" = "#6CAA2F",
-                                   "Unprivileged" = "#C23E28")) +
+      scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
+      # geom_text(x = 1, y = 0, label = if_else(metrics == "auroc", "*", "**"), 
+      #           color = "blue", size = 15) +
+      # scale_fill_manual(values = c("Privileged" = "#6CAA2F",
+      #                              "Unprivileged" = "#C23E28")) +
       labs(x = NULL),
     df |> 
       filter(metrics %in% c("sensitivity", "specificity", "ppv")) |> 

@@ -144,7 +144,7 @@ ggplot(data = output,
 ```
 
 ```{r}
-#| label: pie_chart_pivileged/unprivileged
+#| label: fig-pie_chart
 
 output |> 
   mutate(
