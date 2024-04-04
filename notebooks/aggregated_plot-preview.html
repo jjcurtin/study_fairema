@@ -337,13 +337,46 @@
 <span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"metrics"</span>, <span class="at">values_to =</span> <span class="st">"score"</span>) <span class="sc">|&gt;</span></span>
 <span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">metrics =</span> <span class="fu">case_when</span>(metrics <span class="sc">==</span> <span class="st">"balaccuracy"</span> <span class="sc">~</span> <span class="st">"balanced accuracy"</span>,</span>
 <span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>                               metrics <span class="sc">!=</span> <span class="st">"balaccuracy"</span> <span class="sc">~</span> metrics),</span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">group =</span> <span class="fu">if_else</span>(</span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>             group <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Female"</span>, <span class="st">"non_white"</span>, <span class="st">"below_poverty"</span>, <span class="st">"older"</span>),</span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Unprivileged"</span>,</span>
-<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>             <span class="st">"Privileged"</span></span>
-<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>           )) <span class="sc">|&gt;</span> </span>
-<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">metrics =</span> <span class="fu">if_else</span>(metrics <span class="sc">==</span> <span class="st">"prauc"</span>, <span class="st">"auPRC"</span>, metrics))</span>
-<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">group =</span> <span class="fu">case_when</span>(</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>             group <span class="sc">==</span> <span class="st">"Male"</span> <span class="sc">~</span> <span class="st">"Privileged (Male)"</span>,</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>             group <span class="sc">==</span> <span class="st">"Female"</span> <span class="sc">~</span> <span class="st">"Unprivileged (Female)"</span>,</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>             group <span class="sc">==</span> <span class="st">"white"</span> <span class="sc">~</span> <span class="st">"Privileged (White)"</span>,</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>             group <span class="sc">==</span> <span class="st">"non_white"</span> <span class="sc">~</span> <span class="st">"Unprivileged (Person of Color)"</span>,</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>             group <span class="sc">==</span> <span class="st">"above_poverty"</span> <span class="sc">~</span> <span class="st">"Privileged (Above Poverty)"</span>,</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>             group <span class="sc">==</span> <span class="st">"below_poverty"</span> <span class="sc">~</span> <span class="st">"Unprivileged (Below Poverty)"</span>,</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>             group <span class="sc">==</span> <span class="st">"younger"</span> <span class="sc">~</span> <span class="st">"Privileged (Age 55 or older)"</span>,</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>             group <span class="sc">==</span> <span class="st">"older"</span> <span class="sc">~</span> <span class="st">"Unprivileged (Below 55)"</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>           ),</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">sig =</span> <span class="fu">case_when</span>(</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"sex"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"auroc"</span> <span class="sc">~</span> <span class="st">"**"</span>,</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"sex"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"prauc"</span> <span class="sc">~</span> <span class="st">"NS"</span>,</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"sex"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"sensitivity"</span> <span class="sc">~</span> <span class="st">"NS"</span>,</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"sex"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"specificity"</span> <span class="sc">~</span> <span class="st">"*"</span>,</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"sex"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"ppv"</span> <span class="sc">~</span> <span class="st">"NS"</span>,</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"sex"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"balanced accuracy"</span> <span class="sc">~</span> <span class="st">"NS"</span>,</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"race"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"auroc"</span> <span class="sc">~</span> <span class="st">"***"</span>,</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"race"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"prauc"</span> <span class="sc">~</span> <span class="st">"***"</span>,</span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"race"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"sensitivity"</span> <span class="sc">~</span> <span class="st">"***"</span>,</span>
+<span id="cb24-29"><a href="#cb24-29" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"race"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"specificity"</span> <span class="sc">~</span> <span class="st">"*"</span>,</span>
+<span id="cb24-30"><a href="#cb24-30" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"race"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"ppv"</span> <span class="sc">~</span> <span class="st">"*"</span>,</span>
+<span id="cb24-31"><a href="#cb24-31" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"race"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"balanced accuracy"</span> <span class="sc">~</span> <span class="st">"***"</span>,</span>
+<span id="cb24-32"><a href="#cb24-32" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"income"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"auroc"</span> <span class="sc">~</span> <span class="st">"**"</span>,</span>
+<span id="cb24-33"><a href="#cb24-33" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"income"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"prauc"</span> <span class="sc">~</span> <span class="st">"*"</span>,</span>
+<span id="cb24-34"><a href="#cb24-34" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"income"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"sensitivity"</span> <span class="sc">~</span> <span class="st">"***"</span>,</span>
+<span id="cb24-35"><a href="#cb24-35" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"income"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"specificity"</span> <span class="sc">~</span> <span class="st">"NS"</span>,</span>
+<span id="cb24-36"><a href="#cb24-36" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"income"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"ppv"</span> <span class="sc">~</span> <span class="st">"NS"</span>,</span>
+<span id="cb24-37"><a href="#cb24-37" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"income"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"balanced accuracy"</span> <span class="sc">~</span> <span class="st">"***"</span>,</span>
+<span id="cb24-38"><a href="#cb24-38" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"age"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"auroc"</span> <span class="sc">~</span> <span class="st">"***"</span>,</span>
+<span id="cb24-39"><a href="#cb24-39" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"age"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"prauc"</span> <span class="sc">~</span> <span class="st">"NS"</span>,</span>
+<span id="cb24-40"><a href="#cb24-40" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"age"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"sensitivity"</span> <span class="sc">~</span> <span class="st">"**"</span>,</span>
+<span id="cb24-41"><a href="#cb24-41" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"age"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"specificity"</span> <span class="sc">~</span> <span class="st">"*"</span>,</span>
+<span id="cb24-42"><a href="#cb24-42" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"age"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"ppv"</span> <span class="sc">~</span> <span class="st">"*"</span>,</span>
+<span id="cb24-43"><a href="#cb24-43" aria-hidden="true" tabindex="-1"></a>             attribute <span class="sc">==</span> <span class="st">"age"</span> <span class="sc">&amp;</span> metrics <span class="sc">==</span> <span class="st">"balanced accuracy"</span> <span class="sc">~</span> <span class="st">"***"</span></span>
+<span id="cb24-44"><a href="#cb24-44" aria-hidden="true" tabindex="-1"></a>           )</span>
+<span id="cb24-45"><a href="#cb24-45" aria-hidden="true" tabindex="-1"></a>           )<span class="sc">|&gt;</span> </span>
+<span id="cb24-46"><a href="#cb24-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">metrics =</span> <span class="fu">if_else</span>(metrics <span class="sc">==</span> <span class="st">"prauc"</span>, <span class="st">"auPR"</span>, metrics)) <span class="sc">|&gt;</span> </span>
+<span id="cb24-47"><a href="#cb24-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">metrics =</span> <span class="fu">if_else</span>(metrics <span class="sc">==</span> <span class="st">"auroc"</span>, <span class="st">"auROC"</span>, metrics))</span>
+<span id="cb24-48"><a href="#cb24-48" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
 <div class="cell-container"><div class="cell-decorator"><pre>In [9]:</pre></div><div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>df_sex <span class="ot">&lt;-</span> <span class="fu">mak_df_plot</span>(df_sex)</span>
@@ -356,126 +389,115 @@
 <section id="construct-plots" class="level3">
 <h3 class="anchored" data-anchor-id="construct-plots">Construct Plots</h3>
 <div class="cell-container"><div class="cell-decorator"><pre>In [10]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> metrics, <span class="at">y =</span> score, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">outlier.size =</span> .<span class="dv">8</span>) <span class="sc">+</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>attribute) <span class="sc">+</span></span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Privileged"</span> <span class="ot">=</span> <span class="st">"#6CAA2F"</span>,</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"Unprivileged"</span> <span class="ot">=</span> <span class="st">"#C23E28"</span>)) <span class="sc">+</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_classic</span>() <span class="sc">+</span> </span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x=</span><span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">35</span>, <span class="at">vjust =</span> <span class="fl">0.7</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: Removed 1 rows containing non-finite values (`stat_boxplot()`).</code></pre>
-</div>
-<div class="cell-output-display">
-<div class="">
-<figure class="figure">
-<p class=""><a href="aggregated_plot_files/figure-html/unnamed-chunk-8-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="aggregated_plot_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></a></p>
-</figure>
-</div>
-</div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># df |&gt; </span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co">#   ggplot(aes(x = metrics, y = score, fill = group)) +</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co">#   geom_boxplot(outlier.size = .8) +</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   facet_wrap(~attribute) +</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   scale_fill_manual(values = c("Privileged" = "#6CAA2F",</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">#                                "Unprivileged" = "#C23E28")) +</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme_classic() + </span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co">#   theme(axis.text.x=element_text(angle = 35, vjust = 0.7))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
 <div class="cell-container"><div class="cell-decorator"><pre>In [11]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>output_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(df, legend_text){</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  sig_marks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"*"</span>, <span class="st">"**"</span>, <span class="st">"***"</span>, <span class="st">""</span>)</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggarrange</span>(</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    df <span class="sc">|&gt;</span> </span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(metrics <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"auroc"</span>, <span class="st">"auPRC"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> score, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_boxplot</span>(<span class="at">outlier.size =</span> .<span class="dv">8</span>) <span class="sc">+</span></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">facet_wrap</span>(<span class="sc">~</span>metrics) <span class="sc">+</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.line.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">r =</span> <span class="sc">-</span><span class="dv">12</span>)),</span>
-<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.line.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>            <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">10</span>, <span class="dv">50</span>, <span class="st">"pt"</span>)) <span class="sc">+</span></span>
-<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#6CAA2F"</span>, <span class="st">"#C23E28"</span>)) <span class="sc">+</span></span>
-<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>      <span class="co"># geom_text(x = 1, y = 0, label = if_else(metrics == "auroc", "*", "**"), </span></span>
-<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>      <span class="co">#           color = "blue", size = 15) +</span></span>
-<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a>      <span class="co"># scale_fill_manual(values = c("Privileged" = "#6CAA2F",</span></span>
-<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>      <span class="co">#                              "Unprivileged" = "#C23E28")) +</span></span>
-<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>),</span>
-<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>    df <span class="sc">|&gt;</span> </span>
-<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(metrics <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"sensitivity"</span>, <span class="st">"specificity"</span>, <span class="st">"ppv"</span>)) <span class="sc">|&gt;</span> </span>
-<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> score, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
-<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_boxplot</span>(<span class="at">outlier.size =</span> .<span class="dv">8</span>) <span class="sc">+</span></span>
-<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a>      <span class="fu">facet_wrap</span>(<span class="sc">~</span>metrics) <span class="sc">+</span></span>
-<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
-<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb28-30"><a href="#cb28-30" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb28-31"><a href="#cb28-31" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.line.y =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb28-32"><a href="#cb28-32" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">r =</span> <span class="sc">-</span><span class="dv">12</span>)),</span>
-<span id="cb28-33"><a href="#cb28-33" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.line.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb28-34"><a href="#cb28-34" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb28-35"><a href="#cb28-35" aria-hidden="true" tabindex="-1"></a>            <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">10</span>, <span class="dv">50</span>, <span class="st">"pt"</span>)) <span class="sc">+</span></span>
-<span id="cb28-36"><a href="#cb28-36" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Privileged"</span> <span class="ot">=</span> <span class="st">"#6CAA2F"</span>,</span>
-<span id="cb28-37"><a href="#cb28-37" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"Unprivileged"</span> <span class="ot">=</span> <span class="st">"#C23E28"</span>)) <span class="sc">+</span></span>
-<span id="cb28-38"><a href="#cb28-38" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>),</span>
-<span id="cb28-39"><a href="#cb28-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="dv">2</span>,</span>
-<span id="cb28-40"><a href="#cb28-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">common.legend =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb28-41"><a href="#cb28-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend =</span> <span class="st">"bottom"</span>,</span>
-<span id="cb28-42"><a href="#cb28-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">widths =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>)</span>
-<span id="cb28-43"><a href="#cb28-43" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb28-44"><a href="#cb28-44" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>output_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(df){</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  sig_marks <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"*"</span>, <span class="st">"**"</span>, <span class="st">"***"</span>, <span class="st">""</span>)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggarrange</span>(</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    df <span class="sc">|&gt;</span> </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(metrics <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"auROC"</span>, <span class="st">"auPR"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> score, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_boxplot</span>(<span class="at">outlier.size =</span> .<span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">facet_wrap</span>(<span class="sc">~</span>metrics) <span class="sc">+</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.line.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">r =</span> <span class="sc">-</span><span class="dv">12</span>)),</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.line.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>            <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">10</span>, <span class="dv">50</span>, <span class="st">"pt"</span>),</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.title=</span><span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#6CAA2F"</span>, <span class="st">"#C23E28"</span>)) <span class="sc">+</span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> sig, <span class="at">y =</span> <span class="dv">0</span>), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">7</span>),</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>    df <span class="sc">|&gt;</span> </span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>      <span class="fu">filter</span>(metrics <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"sensitivity"</span>, <span class="st">"specificity"</span>, <span class="st">"ppv"</span>)) <span class="sc">|&gt;</span> </span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>      <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> score, <span class="at">fill =</span> group)) <span class="sc">+</span></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_boxplot</span>(<span class="at">outlier.size =</span> .<span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>      <span class="fu">facet_wrap</span>(<span class="sc">~</span>metrics) <span class="sc">+</span></span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_classic</span>() <span class="sc">+</span></span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme</span>(<span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.line.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">r =</span> <span class="sc">-</span><span class="dv">12</span>)),</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.line.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>            <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a>            <span class="at">plot.margin =</span> <span class="fu">margin</span>(<span class="dv">10</span>, <span class="dv">50</span>, <span class="dv">10</span>, <span class="dv">50</span>, <span class="st">"pt"</span>),</span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.title=</span><span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>      <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#6CAA2F"</span>, <span class="st">"#C23E28"</span>)) <span class="sc">+</span></span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a>      <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a>      <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> sig, <span class="at">y =</span> <span class="dv">0</span>), <span class="at">color =</span> <span class="st">"blue"</span>, <span class="at">size =</span> <span class="dv">7</span>),</span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">nrow =</span> <span class="dv">2</span>,</span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">common.legend =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend =</span> <span class="st">"bottom"</span>,</span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">widths =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">3</span>)</span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
 <div class="cell-container"><div class="cell-decorator"><pre>In [12]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_plot</span>(df_sex) <span class="sc">|&gt;</span> </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate_figure</span>(<span class="at">top =</span> <span class="fu">text_grob</span>(<span class="st">"Sex"</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_plot</span>(df_sex) <span class="sc">|&gt;</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate_figure</span>(<span class="at">top =</span> <span class="fu">text_grob</span>(<span class="st">"Sex"</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="aggregated_plot_files/figure-html/bar_plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="aggregated_plot_files/figure-html/bar_plot-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="aggregated_plot_files/figure-html/bar_plot-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="aggregated_plot_files/figure-html/bar_plot-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_plot</span>(df_race) <span class="sc">|&gt;</span> </span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate_figure</span>(<span class="at">top =</span> <span class="fu">text_grob</span>(<span class="st">"Race"</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_plot</span>(df_race) <span class="sc">|&gt;</span> </span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate_figure</span>(<span class="at">top =</span> <span class="fu">text_grob</span>(<span class="st">"Race"</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="aggregated_plot_files/figure-html/bar_plot-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="aggregated_plot_files/figure-html/bar_plot-2.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="aggregated_plot_files/figure-html/bar_plot-2.png" class="lightbox" data-gallery="quarto-lightbox-gallery-2"><img src="aggregated_plot_files/figure-html/bar_plot-2.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_plot</span>(df_income) <span class="sc">|&gt;</span> </span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate_figure</span>(<span class="at">top =</span> <span class="fu">text_grob</span>(<span class="st">"Income"</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_plot</span>(df_income) <span class="sc">|&gt;</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate_figure</span>(<span class="at">top =</span> <span class="fu">text_grob</span>(<span class="st">"Income"</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 1 rows containing non-finite values (`stat_boxplot()`).</code></pre>
 </div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="aggregated_plot_files/figure-html/bar_plot-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="aggregated_plot_files/figure-html/bar_plot-3.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="aggregated_plot_files/figure-html/bar_plot-3.png" class="lightbox" data-gallery="quarto-lightbox-gallery-3"><img src="aggregated_plot_files/figure-html/bar_plot-3.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_plot</span>(df_age) <span class="sc">|&gt;</span> </span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate_figure</span>(<span class="at">top =</span> <span class="fu">text_grob</span>(<span class="st">"Age"</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">output_plot</span>(df_age) <span class="sc">|&gt;</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate_figure</span>(<span class="at">top =</span> <span class="fu">text_grob</span>(<span class="st">"Age"</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><a href="aggregated_plot_files/figure-html/bar_plot-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="aggregated_plot_files/figure-html/bar_plot-4.png" class="img-fluid figure-img" width="672"></a></p>
+<p><a href="aggregated_plot_files/figure-html/bar_plot-4.png" class="lightbox" data-gallery="quarto-lightbox-gallery-4"><img src="aggregated_plot_files/figure-html/bar_plot-4.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
 </div></div>
 <div class="cell-container"><div class="cell-decorator"><pre>In [13]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(</span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate_figure</span>(<span class="fu">output_plot</span>(df_sex), <span class="at">top =</span> <span class="fu">text_grob</span>(<span class="st">"Sex"</span>, <span class="at">face =</span> <span class="st">"bold"</span>)),</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate_figure</span>(<span class="fu">output_plot</span>(df_race), <span class="at">top =</span> <span class="fu">text_grob</span>(<span class="st">"Race"</span>, <span class="at">face =</span> <span class="st">"bold"</span>)),</span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate_figure</span>(<span class="fu">output_plot</span>(df_income), <span class="at">top =</span> <span class="fu">text_grob</span>(<span class="st">"Income"</span>, <span class="at">face =</span> <span class="st">"bold"</span>)),</span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate_figure</span>(<span class="fu">output_plot</span>(df_age), <span class="at">top =</span> <span class="fu">text_grob</span>(<span class="st">"Age"</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate_figure</span>(<span class="fu">output_plot</span>(df_sex), <span class="at">top =</span> <span class="fu">text_grob</span>(<span class="st">"Sex"</span>, <span class="at">face =</span> <span class="st">"bold"</span>)),</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate_figure</span>(<span class="fu">output_plot</span>(df_race), <span class="at">top =</span> <span class="fu">text_grob</span>(<span class="st">"Race"</span>, <span class="at">face =</span> <span class="st">"bold"</span>)),</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate_figure</span>(<span class="fu">output_plot</span>(df_income), <span class="at">top =</span> <span class="fu">text_grob</span>(<span class="st">"Income"</span>, <span class="at">face =</span> <span class="st">"bold"</span>)),</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate_figure</span>(<span class="fu">output_plot</span>(df_age), <span class="at">top =</span> <span class="fu">text_grob</span>(<span class="st">"Age"</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: Removed 1 rows containing non-finite values (`stat_boxplot()`).</code></pre>
 </div>
 <div class="cell-output-display">
 <div class="">
 <figure class="figure">
-<p class=""><a href="aggregated_plot_files/figure-html/unnamed-chunk-11-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-6"><img src="aggregated_plot_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></a></p>
+<p class=""><a href="aggregated_plot_files/figure-html/unnamed-chunk-11-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-5"><img src="aggregated_plot_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></a></p>
 </figure>
 </div>
 </div>
@@ -890,7 +912,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"descPosition":"bottom","selector":".lightbox","loop":false,"openEffect":"zoom","closeEffect":"zoom"});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"descPosition":"bottom","closeEffect":"zoom","selector":".lightbox","loop":false,"openEffect":"zoom"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;
