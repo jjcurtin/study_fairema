@@ -259,7 +259,7 @@ output_plot_ci <- function(df){
             legend.title=element_blank()) +
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
-      geom_text(aes(label = CI, y = 0), color = "blue", size = 4),
+      geom_text(aes(label = CI, y = 0), color = "blue", size = 2.5),
     df |> 
       filter(metrics %in% c("sensitivity", "specificity", "ppv")) |> 
       ggplot(aes(x = "", y = score, fill = group)) +
@@ -277,7 +277,7 @@ output_plot_ci <- function(df){
             legend.title=element_blank()) +
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
-      geom_text(aes(label = CI, y = 0), color = "blue", size = 4),
+      geom_text(aes(label = CI, y = 0), color = "blue", size = 2.5),
     nrow = 2,
     common.legend = TRUE,
     legend = "bottom",
