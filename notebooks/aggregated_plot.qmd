@@ -168,7 +168,7 @@ output_plot <- function(df){
       filter(metrics %in% c("auROC", "auPR")) |> 
       ggplot(aes(x = "", y = score, fill = group)) +
       geom_boxplot(outlier.size = .3) +
-      facet_wrap(~metrics) +
+      facet_wrap(~factor(metrics, levels = c("auROC", "auPR"))) +
       theme_classic() +
       theme(axis.title.y = element_blank(),
             axis.ticks.y = element_blank(),
@@ -185,7 +185,8 @@ output_plot <- function(df){
       filter(metrics %in% c("sensitivity", "specificity", "ppv")) |> 
       ggplot(aes(x = "", y = score, fill = group)) +
       geom_boxplot(outlier.size = .3) +
-      facet_wrap(~metrics) +
+      facet_wrap(~factor(metrics, 
+                         levels = c("specificity", "sensitivity", "ppv"))) +
       theme_classic() +
       theme(axis.title.y = element_blank(),
             axis.ticks.y = element_blank(),
