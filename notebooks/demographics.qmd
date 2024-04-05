@@ -108,43 +108,15 @@ output <- output |>
   rename(subgroup = Var1, N = Freq) |> 
   relocate(demographics)
 output <- output[c(2, 1, 4, 3, 5, 6, 8, 7),]
-output |> print_kbl()
+# output |> print_kbl()
 ```
 
-```{r}
-#| label: barplot
-
-ggplot(output, aes(subgroup, N, fill=demographics)) +
-  geom_col() +
-  theme_classic() +
-  theme(axis.text.x=element_text(angle = 30, vjust = 0.7)) +
-  scale_fill_brewer(palette = "Dark2")
-```
 
 ```{r}
-#| label: pie chart detailed label
-
-ggplot(data = output,
-       aes(x = "", y = N, fill = subgroup)) + 
-  geom_bar(stat="identity", width=1) +
-  coord_polar("y", start=0) +
-  scale_fill_manual(values = c("Male" = "#6CAA2F",
-                               "Female" = "#C23E28",
-                               "white" = "#6CAA2F",
-                               "non_white" = "#C23E28",
-                               "above_poverty" = "#6CAA2F",
-                               "below_poverty" = "#C23E28",
-                               "younger" = "#6CAA2F",
-                               "older" = "#C23E28")) +
-  geom_text(aes(label = subgroup), position = position_stack(vjust = 0.5)) +
-  theme_void() +
-  theme(legend.position="none") +
-  facet_wrap(~demographics) +
-  theme(strip.text.x = element_text(size = 14))
-```
-
-```{r}
-#| label: pie_chart_pivileged/unprivileged
+#| label: pie_chart
+#| fig-width: 4
+#| fig-height: 4
+#| fig-align: center
 
 output |> 
   mutate(
@@ -164,74 +136,18 @@ output |>
   coord_polar("y", start=0) +
   scale_fill_manual(values = c("privileged" = "#6CAA2F",
                                "unprivileged" = "#C23E28")) +
-  geom_text(aes(label = subgroup), position = position_stack(vjust = 0.5)) +
+  geom_text(aes(label = c(
+    "Male",
+    "Female",
+    "White",
+    "Person of Color",
+    "Above Poverty",
+    "Below Poverty",
+    "Younger",
+    "Older (>55)"
+  )), position = position_stack(vjust = 0.5)) +
   theme_void() +
-  theme(legend.position="none") +
+  theme(legend.title=element_blank(), legend.position = "bottom") +
   facet_wrap(~demographics) +
   theme(strip.text.x = element_text(size = 14))
 ```
-
-```{r}
-#| label: pie chart function
-
-demo_summary <- function(attribute){
-  df <- data.frame(table(demographics[attribute]))
-  names(df) <- c("group", "value")
-  
-  df |> 
-  arrange(desc(group)) |> 
-  mutate(prop = value / sum(df$value) *100) |> 
-  mutate(ypos = cumsum(prop)- 0.5*prop )
-}
-
-```
-
-```{r}
-#| label: pie chart
-plot1 <- ggplot(data = data.frame(table(demographics$sex)),
-       aes(x = "", y = Freq, fill = Var1)) + 
-  geom_bar(stat="identity", width=1) +
-  coord_polar("y", start=0) +
-  scale_fill_manual(values = c("Male" = "#6CAA2F",
-                               "Female" = "#C23E28")) +
-  geom_text(aes(label = Var1), position = position_stack(vjust = 0.5)) +
-  theme_void() +
-  theme(legend.position="none")
-plot1 <- gridExtra::grid.arrange(plot1, bottom = "Sex")
-
-plot2 <- ggplot(data = data.frame(table(demographics$race)),
-       aes(x = "", y = Freq, fill = Var1)) + 
-  geom_bar(stat="identity", width=1) +
-  coord_polar("y", start=0) +
-  scale_fill_manual(values = c("white" = "#6CAA2F",
-                               "non_white" = "#C23E28")) +
-  geom_text(aes(label = Var1), position = position_stack(vjust = 0.5)) +
-  theme_void() +
-  theme(legend.position="none")
-plot2 <- gridExtra::grid.arrange(plot2, bottom = "Race")
-
-plot3 <- ggplot(data = data.frame(table(demographics$income)),
-       aes(x = "", y = Freq, fill = Var1)) + 
-  geom_bar(stat="identity", width=1) +
-  coord_polar("y", start=0) +
-  scale_fill_manual(values = c("above_poverty" = "#6CAA2F",
-                               "below_poverty" = "#C23E28")) +
-  geom_text(aes(label = Var1), position = position_stack(vjust = 0.5)) +
-  theme_void() +
-  theme(legend.position="none")
-plot3 <- gridExtra::grid.arrange(plot3, bottom = "Income")
-
-plot4 <- ggplot(data = data.frame(table(demographics$age)),
-       aes(x = "", y = Freq, fill = Var1)) + 
-  geom_bar(stat="identity", width=1) +
-  coord_polar("y", start=0) +
-  scale_fill_manual(values = c("younger" = "#6CAA2F",
-                               "older" = "#C23E28")) +
-  geom_text(aes(label = Var1), position = position_stack(vjust = 0.5)) +
-  theme_void() +
-  theme(legend.position="none")
-plot4 <- gridExtra::grid.arrange(plot4, bottom = "Age")
-
-cowplot::plot_grid(plot1, plot2, plot3, plot4)
-```
-

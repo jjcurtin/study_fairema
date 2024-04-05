@@ -98,12 +98,71 @@ mak_df_plot <- function(df){
                names_to = "metrics", values_to = "score") |>
     mutate(metrics = case_when(metrics == "balaccuracy" ~ "balanced accuracy",
                                metrics != "balaccuracy" ~ metrics),
-           group = if_else(
-             group %in% c("Female", "non_white", "below_poverty", "older"),
-             "Unprivileged",
-             "Privileged"
-           )) |> 
-    mutate(metrics = if_else(metrics == "prauc", "auPRC", metrics))
+           group = case_when(
+             group == "Male" ~ "Privileged (Male)",
+             group == "Female" ~ "Unprivileged (Female)",
+             group == "white" ~ "Privileged (White)",
+             group == "non_white" ~ "Unprivileged (Person of Color)",
+             group == "above_poverty" ~ "Privileged (Above Poverty)",
+             group == "below_poverty" ~ "Unprivileged (Below Poverty)",
+             group == "younger" ~ "Privileged (Age 55 or older)",
+             group == "older" ~ "Unprivileged (Below 55)"
+           ),
+           sig = case_when(
+             attribute == "sex" & metrics == "auroc" ~ "**",
+             attribute == "sex" & metrics == "prauc" ~ "",
+             attribute == "sex" & metrics == "sensitivity" ~ "",
+             attribute == "sex" & metrics == "specificity" ~ "*",
+             attribute == "sex" & metrics == "ppv" ~ "",
+             attribute == "sex" & metrics == "balanced accuracy" ~ "",
+             attribute == "race" & metrics == "auroc" ~ "***",
+             attribute == "race" & metrics == "prauc" ~ "***",
+             attribute == "race" & metrics == "sensitivity" ~ "***",
+             attribute == "race" & metrics == "specificity" ~ "*",
+             attribute == "race" & metrics == "ppv" ~ "*",
+             attribute == "race" & metrics == "balanced accuracy" ~ "***",
+             attribute == "income" & metrics == "auroc" ~ "**",
+             attribute == "income" & metrics == "prauc" ~ "*",
+             attribute == "income" & metrics == "sensitivity" ~ "***",
+             attribute == "income" & metrics == "specificity" ~ "",
+             attribute == "income" & metrics == "ppv" ~ "",
+             attribute == "income" & metrics == "balanced accuracy" ~ "***",
+             attribute == "age" & metrics == "auroc" ~ "***",
+             attribute == "age" & metrics == "prauc" ~ "",
+             attribute == "age" & metrics == "sensitivity" ~ "**",
+             attribute == "age" & metrics == "specificity" ~ "*",
+             attribute == "age" & metrics == "ppv" ~ "*",
+             attribute == "age" & metrics == "balanced accuracy" ~ "***"
+           ),
+           CI = case_when(
+             attribute == "sex" & metrics == "auroc" ~ "CI[0.014, 0.074]",
+             attribute == "sex" & metrics == "prauc" ~ "CI[-0.080, 0.106]",
+             attribute == "sex" & metrics == "sensitivity" ~ "CI[-0.065, 0.106]",
+             attribute == "sex" & metrics == "specificity" ~ "CI[0.011, 0.101]",
+             attribute == "sex" & metrics == "ppv" ~ "CI[-0.071, 0.057]",
+             attribute == "sex" & metrics == "balanced accuracy" ~ "CI[-0.001, 0.078]",
+             attribute == "race" & metrics == "auroc" ~ "CI[0.127, 0.259]",
+             attribute == "race" & metrics == "prauc" ~ "CI[0.121, 0.324]",
+             attribute == "race" & metrics == "sensitivity" ~ "CI[0.132, 0.363]",
+             attribute == "race" & metrics == "specificity" ~ "CI[0.0103, 0.152]",
+             attribute == "race" & metrics == "ppv" ~ "CI[0.026, 0.182]",
+             attribute == "race" & metrics == "balanced accuracy" ~ "CI[0.121, 0.206]",
+             attribute == "income" & metrics == "auroc" ~ "CI[0.067, 0.196]",
+             attribute == "income" & metrics == "prauc" ~ "CI[0.016, 0.227]",
+             attribute == "income" & metrics == "sensitivity" ~ "CI[0.140, 0.344]",
+             attribute == "income" & metrics == "specificity" ~ "CI[-0.103, -0.008]",
+             attribute == "income" & metrics == "ppv" ~ "CI[-0.079, 0.089]",
+             attribute == "income" & metrics == "balanced accuracy" ~ "CI[0.047, 0.139]",
+             attribute == "age" & metrics == "auroc" ~ "CI[0.057, 0.138]",
+             attribute == "age" & metrics == "prauc" ~ "CI[-0.017, 0.187]",
+             attribute == "age" & metrics == "sensitivity" ~ "CI[0.063, 0.240]",
+             attribute == "age" & metrics == "specificity" ~ "CI[0.006, 0.106]",
+             attribute == "age" & metrics == "ppv" ~ "CI[0.011, 0.143]",
+             attribute == "age" & metrics == "balanced accuracy" ~ "CI[0.065, 0.149]"
+           )
+           )|> 
+    mutate(metrics = if_else(metrics == "prauc", "auPR", metrics)) |> 
+    mutate(metrics = if_else(metrics == "auroc", "auROC", metrics))
 }
 ```
 
@@ -116,25 +175,16 @@ df <- mak_df_plot(df)
 ```
 
 ### Construct Plots
-```{r}
-df |> 
-  ggplot(aes(x = metrics, y = score, fill = group)) +
-  geom_boxplot(outlier.size = .8) +
-  facet_wrap(~attribute) +
-  scale_fill_manual(values = c("Privileged" = "#6CAA2F",
-                               "Unprivileged" = "#C23E28")) +
-  theme_classic() + 
-  theme(axis.text.x=element_text(angle = 35, vjust = 0.7))
-```
 
 ```{r}
 output_plot <- function(df){
+  sig_marks <- c("", "*", "**", "***", "")
   ggarrange(
     df |> 
-      filter(metrics %in% c("auroc", "auPRC")) |> 
+      filter(metrics %in% c("auROC", "auPR")) |> 
       ggplot(aes(x = "", y = score, fill = group)) +
-      geom_boxplot(outlier.size = .8) +
-      facet_wrap(~metrics) +
+      geom_boxplot(outlier.size = .2) +
+      facet_wrap(~factor(metrics, levels = c("auROC", "auPR"))) +
       theme_classic() +
       theme(axis.title.y = element_blank(),
             axis.ticks.y = element_blank(),
@@ -142,15 +192,17 @@ output_plot <- function(df){
             axis.text.y = element_text(margin = margin(r = -12)),
             axis.line.x = element_blank(),
             axis.ticks.x = element_blank(),
-            plot.margin = margin(10, 50, 10, 50, "pt")) +
-      scale_fill_manual(values = c("Privileged" = "#6CAA2F",
-                                   "Unprivileged" = "#C23E28")) +
-      labs(x = NULL),
+            plot.margin = margin(10, 50, 10, 50, "pt"),
+            legend.title=element_blank()) +
+      scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
+      labs(x = NULL) +
+      geom_text(aes(label = sig, y = 0), color = "blue", size = 7),
     df |> 
       filter(metrics %in% c("sensitivity", "specificity", "ppv")) |> 
       ggplot(aes(x = "", y = score, fill = group)) +
-      geom_boxplot(outlier.size = .8) +
-      facet_wrap(~metrics) +
+      geom_boxplot(outlier.size = .2) +
+      facet_wrap(~factor(metrics, 
+                         levels = c("specificity", "sensitivity", "ppv"))) +
       theme_classic() +
       theme(axis.title.y = element_blank(),
             axis.ticks.y = element_blank(),
@@ -158,10 +210,11 @@ output_plot <- function(df){
             axis.text.y = element_text(margin = margin(r = -12)),
             axis.line.x = element_blank(),
             axis.ticks.x = element_blank(),
-            plot.margin = margin(10, 50, 10, 50, "pt")) +
-      scale_fill_manual(values = c("Privileged" = "#6CAA2F",
-                                   "Unprivileged" = "#C23E28")) +
-      labs(x = NULL),
+            plot.margin = margin(10, 50, 10, 50, "pt"),
+            legend.title=element_blank()) +
+      scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
+      labs(x = NULL) +
+      geom_text(aes(label = sig, y = 0), color = "blue", size = 7),
     nrow = 2,
     common.legend = TRUE,
     legend = "bottom",
@@ -170,8 +223,12 @@ output_plot <- function(df){
 }
 ```
 
+
 ```{r}
 #| label: bar_plot
+#| fig-width: 4
+#| fig-height: 4
+
 output_plot(df_sex) |> 
   annotate_figure(top = text_grob("Sex", face = "bold"))
 
@@ -184,13 +241,3 @@ output_plot(df_income) |>
 output_plot(df_age) |> 
   annotate_figure(top = text_grob("Age", face = "bold"))
 ```
-
-```{r}
-ggarrange(
-  annotate_figure(output_plot(df_sex), top = text_grob("Sex", face = "bold")),
-  annotate_figure(output_plot(df_race), top = text_grob("Race", face = "bold")),
-  annotate_figure(output_plot(df_income), top = text_grob("Income", face = "bold")),
-  annotate_figure(output_plot(df_age), top = text_grob("Age", face = "bold"))
-)
-```
-
