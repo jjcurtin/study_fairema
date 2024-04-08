@@ -1,5 +1,5 @@
 ---
-title: "Evaluating Algorithmic Fairness in Predicting Temporal Alcohol Lapse Risks with Machine Learning Models"
+title: "Alcohol Lapse Risk Prediction with Machine Learning: Evaluating Algorithmic Fairness"
 format:
   poster-typst: 
     size: "36x24"
@@ -26,13 +26,13 @@ format:
 -   Locally important features can identify the factors that contribute to lapse risk for any specific person and moment in time
 -   A "smart" digital therapeutic (smart DTx) could use algorithms based on this model to monitor lapse risk and recommend personalized, optimal interventions and other supports for momentary risks
 
-## Algorithmic Bias
+## Algorithmic Fairness 
 
 -   Less privileged, marginalized groups display mental health treatment disparities due to barriers related to affordability, accessibility, availability, and acceptability of mental healthcare
--   Smart DTx can partially address these barriers by providing 24/7/365, affordable, personalized support\
+-   Smart DTx can partially address these barriers by providing 24/7/365, affordable, personalized support
 -   However, if embedded algorithms perform relatively worse for less privileged groups, their use may exacerbate rather than reduce treatment disparities
 
-> [**GOAL: Evaluate potential algorithmic bias across historically privileged and unprivileged groups**]{style="color:red"}
+> [**GOAL: Evaluate potential algorithmic fairness across historically privileged and unprivileged groups**]{style="color:red"}
 
 :::
 
@@ -64,8 +64,8 @@ format:
 
 -   **Race/Ethnicity**: Non-hispanic White vs. People of Color
 -   **Sex**: Male vs. Female
--   **income**: above 50% of median personal income in Madison (\$15k) vs. below
--   **age**: 55 or younger vs. above 55
+-   **Income**: Above 50% of median personal income in Madison (\$15k) vs. below
+-   **Age**: 55 or younger vs. above 55
 
 ## Performance Metrics
 
