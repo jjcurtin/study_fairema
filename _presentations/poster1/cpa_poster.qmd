@@ -13,8 +13,9 @@ format:
     # keywords: ["Typesetting", "Typst", "Quarto"]
 ---
 
-<!--Lets improve the title-->
+<!--Column 1: Overview, Conclusions, Next Steps-->
 
+<!--Column 1, Panel 1-->
 ::: {.block fill="rgb(187, 227, 220)" inset="12pt" radius="8pt"}
 
 # Overview and Goals
@@ -26,16 +27,81 @@ format:
 -   Locally important features can identify the factors that contribute to lapse risk for any specific person and moment in time
 -   A "smart" digital therapeutic (smart DTx) could use algorithms based on this model to monitor lapse risk and recommend personalized, optimal interventions and other supports for momentary risks
 
+\
+\
+
 ## Algorithmic Fairness 
 
 -   Less privileged, marginalized groups display mental health treatment disparities due to barriers related to affordability, accessibility, availability, and acceptability of mental healthcare
 -   Smart DTx can partially address these barriers by providing 24/7/365, affordable, personalized support
 -   However, if embedded algorithms perform relatively worse for less privileged groups, their use may exacerbate rather than reduce treatment disparities
 
-> [**GOAL: Evaluate potential algorithmic fairness across historically privileged and unprivileged groups**]{style="color:red"}
+\
+
+> [**GOAL: Evaluate algorithmic fairness across historically privileged and unprivileged groups**]{style="color:red"}
 
 :::
 
+
+<!--Column 1, Panel 2-->
+::: {.block fill="rgb(209, 229, 163)" inset="12pt" radius="8pt"}
+
+# Conclusions
+
+## Summary
+
+-   Substantially poorer model performance for people of color
+-   Modestly poorer model performance for groups defined by sex, income, and age
+-   Representation in training data is clearly important
+-   Poorer performance for some unprivileged groups may also result from selection of features using domain expertise based on decades of research focused on predominately white men
+
+<!--   Models perform systematically better for White individuals than People of Color.-->
+<!--   auROCs are higher for males than females, probably primarily driven by specificity.-->
+<!--   Both auROCs and auPRs are higher in people with higher income, probably due to sensitivity.-->
+<!-- auROCs, sensitivity, specificity and ppv are significantly higher for younger population.-->
+
+\
+\
+
+## Next Steps
+
+-   Evaluate methods to reduce algorithmic bias
+    -   More representative training data (NIDA project)
+    -   Resampling to increase representation
+    -   Modified cost functions to differential penalize errors based on privilege
+    -   Control for privilege when predicting
+    -   More representative features
+
+\
+
+-   Expand evaluation of privilege
+    -   Rural vs urban/suburban; Education level
+    -   AUD severity
+    -   Intersectional analyses
+    -   Fainess in treatment/support recommendations
+
+:::
+
+
+<!--Column 2: Result Figures-->
+
+<!--Column 2, Panel 1-->
+::: {.block fill="rgb(179, 207, 232)" inset="12pt" radius="8pt"}
+
+# Results
+
+
+{{< embed ../../notebooks/aggregated_plot.qmd#bar_plot >}} 
+
+\
+\
+\
+\
+:::
+
+<!--Column 3: Methods-->
+
+<!-- Column 3, Panel 1-->
 ::: {.block fill="rgb(218, 215, 232)" inset="12pt" radius="8pt"}
 
 # Methods
@@ -46,13 +112,22 @@ format:
 -   Early remission from Alcohol Use Disorder
 -   Endorsed abstinence goal
 
-{{< embed ../../notebooks/demographics.qmd#pie_chart >}}
-
 ## Procedure
 
 -   Personal sensing via smartphone for up to 3 months
 -   4x daily (craving, affect, efficacy, risky situations, stressful events, pleasant events)
 -   Self-reported lapses back to alcohol use
+
+## Sensitive Attributes
+
+-   **Race/Ethnicity**: Non-hispanic White vs. People of Color
+-   **Sex**: Male vs. Female
+-   **Income**: above 50% of median personal income in Madison (\$15k) vs. below
+-   **Age**: 55 or younger vs. above 55
+
+<!--Coco - You should orgainze the order of the plots to follow the same way you display them in the resutls figures.  top row: race, sex, bottom row: income, age-->
+
+{{< embed ../../notebooks/demographics.qmd#pie_chart >}} 
 
 ## Machine Learning Model
 
@@ -60,64 +135,10 @@ format:
 -   Features based on previous EMA
 -   Provides hour-by-hour probability for future (next 24 hour) lapse  <!--maybe report performance here instead?-->
 
-## Sensitive Attributes
-
--   **Race/Ethnicity**: Non-hispanic White vs. People of Color
--   **Sex**: Male vs. Female
--   **Income**: Above 50% of median personal income in Madison (\$15k) vs. below
--   **Age**: 55 or younger vs. above 55
-
-## Performance Metrics
-
--   auROC: true positive rate (sensitivity) against true negative rate (specificity) across thresholds
-
--   auPR: sensitivity against positive predictive value (ppv) across thresholds
-
 ## Statistical Analysis
 
--   30 held-out performance estimates (from nested k-fold cross validation) for each metric
--   Posterior probabilities of group differences estimated using Bayesian generalized mixed effect models
-
-:::
-
-::: {.block fill="rgb(179, 207, 232)" inset="12pt" radius="8pt"}
-# Results
-
-<!--need to get this figures in center of poster and bigger-->
-
-{{< embed ../../notebooks/aggregated_plot.qmd#bar_plot >}} 
-
--   Models perform systematically better for White individuals than People of Color.
-
--   auROCs are higher for males than females, probably primarily driven by specificity.
-
--   Both auROCs and auPRs are higher in people with higher income, probably due to sensitivity.
-
--   auROCs, sensitivity, specificity and ppv are significantly higher for younger population.
-
-:::
-
-::: {.block fill="rgb(209, 229, 163)" inset="12pt" radius="8pt"}
-
-# Conclusions
-
--   Substantially poorer model performance for people of color
--   Modestly poorer model performance for groups defined by sex, income, and age
--   Representation in training data is clearly important
--   Bias may also result from selection of features using domain expertise based on decades of research focused on predominately white men
-
-# Next Steps
-
--   Evaluate methods to reduce algorithmic bias
-    -   More representative training data (NIDA project)
-    -   Resampling to increase representation
-    -   Modified cost functions to differential penalize errors based on privilege
-    -   Control for privilege when predicting
-    -   More representative features
--   Expand evaluation of privilege
-    -   Rural group, Education
-    -   AUD Severity
-    -   Intersectional analyses
-    -   Bias in treatment/support recommendations
+- Compared groups (priviledged vs. unpriviledged) on two aggregate (auROC; auPR) and three specific (specificity, sensitivity, postive preditive value) peformance metrics
+- 30 held-out performance estimates (from nested k-fold cross validation) for each metric
+- Posterior probabilities of group differences estimated using Bayesian generalized mixed effect models
 
 :::
