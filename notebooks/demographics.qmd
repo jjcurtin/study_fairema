@@ -114,6 +114,8 @@ output <- output[c(2, 1, 4, 3, 5, 6, 8, 7),]
 
 ```{r}
 #| label: pie_chart
+#| fig-width: 7.3
+#| fig-height: 5.2
 
 output |> 
   mutate(
