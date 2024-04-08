@@ -375,7 +375,7 @@ $ age    &lt;chr&gt; "older", "younger", "younger", "younger", "younger", "young
 <span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>output <span class="ot">&lt;-</span> output[<span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">7</span>),]</span>
 <span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co"># output |&gt; print_kbl()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
-<div class="cell-container"><div class="cell-decorator"><pre>In [10]:</pre></div><div class="cell" data-layout-align="center">
+<div class="cell-container"><div class="cell-decorator"><pre>In [10]:</pre></div><div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>output <span class="sc">|&gt;</span> </span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
@@ -410,9 +410,9 @@ $ age    &lt;chr&gt; "older", "younger", "younger", "younger", "younger", "young
 <span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>demographics) <span class="sc">+</span></span>
 <span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">strip.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
+<div class="">
 <figure class="figure">
-<p class=""><a href="demographics_files/figure-html/pie_chart-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="demographics_files/figure-html/pie_chart-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="384"></a></p>
+<p class=""><a href="demographics_files/figure-html/pie_chart-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1"><img src="demographics_files/figure-html/pie_chart-1.png" class="img-fluid figure-img" width="384"></a></p>
 </figure>
 </div>
 </div>
@@ -827,7 +827,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom","openEffect":"zoom","loop":false});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"selector":".lightbox","closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;
