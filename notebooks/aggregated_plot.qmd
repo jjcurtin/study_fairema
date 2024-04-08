@@ -192,7 +192,7 @@ output_plot <- function(df){
             axis.text.y = element_text(margin = margin(r = -12)),
             axis.line.x = element_blank(),
             axis.ticks.x = element_blank(),
-            plot.margin = margin(10, 50, 10, 50, "pt"),
+            plot.margin = margin(1, 1, 1, 1, "pt"),
             legend.title=element_blank()) +
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
@@ -210,7 +210,7 @@ output_plot <- function(df){
             axis.text.y = element_text(margin = margin(r = -12)),
             axis.line.x = element_blank(),
             axis.ticks.x = element_blank(),
-            plot.margin = margin(10, 50, 10, 50, "pt"),
+            plot.margin = margin(1, 1, 1, 1, "pt"),
             legend.title=element_blank()) +
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
@@ -219,46 +219,22 @@ output_plot <- function(df){
     common.legend = TRUE,
     legend = "bottom",
     widths = c(2, 3)
-  )
+  ) +
+    theme(plot.margin = margin(1, 1, 1, 1, "pt")) 
 }
 ```
 
 
 ```{r}
-#| label: bar_plot_sex
-#| fig-height: 4
-#| fig-width: 4
+#| label: bar_plot
 
-output_plot(df_sex) |> 
-  annotate_figure(top = text_grob("Sex", face = "bold"))
 
+ggarrange(
+  annotate_figure(output_plot(df_race), top = text_grob("Race", face = "bold")),
+  annotate_figure(output_plot(df_sex), top = text_grob("Sex", face = "bold"))
+)
+ggarrange(
+  annotate_figure(output_plot(df_income), top = text_grob("Income", face = "bold")),
+  annotate_figure(output_plot(df_age), top = text_grob("Age", face = "bold"))
+)
 ```
-
-```{r}
-#| label: bar_plot_race
-#| fig-height: 4
-#| fig-width: 4
-
-output_plot(df_age) |> 
-  annotate_figure(top = text_grob("Race", face = "bold"))
-```
-
-```{r}
-#| label: bar_plot_income
-#| fig-height: 4
-#| fig-width: 4
-
-output_plot(df_income) |> 
-  annotate_figure(top = text_grob("Income", face = "bold"))
-
-```
-
-```{r}
-#| label: bar_plot_age
-#| fig-height: 4
-#| fig-width: 4
-
-output_plot(df_age) |> 
-  annotate_figure(top = text_grob("Age", face = "bold"))
-```
-
