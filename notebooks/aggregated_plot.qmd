@@ -225,9 +225,10 @@ output_plot <- function(df){
 
 
 ```{r}
-#| label: bar_plot
+#| label: fig-bar_plot
 #| fig-width: 4
 #| fig-height: 4
+#| layout-ncol: 2
 
 output_plot(df_sex) |> 
   annotate_figure(top = text_grob("Sex", face = "bold"))
@@ -235,9 +236,15 @@ output_plot(df_sex) |>
 output_plot(df_race) |> 
   annotate_figure(top = text_grob("Race", face = "bold"))
 
+
+```
+
+
+```{r}
 output_plot(df_income) |> 
   annotate_figure(top = text_grob("Income", face = "bold"))
 
 output_plot(df_age) |> 
   annotate_figure(top = text_grob("Age", face = "bold"))
 ```
+
