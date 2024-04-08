@@ -18,16 +18,16 @@
   // Footer text.
   // For instance, Name of Conference, Date, Location.
   // or Course Name, Date, Instructor.
-  footer_text: "Footer Text",
+  // footer_text: "Footer Text",
 
   // Any URL, like a link to the conference website.
-  footer_url: "Footer URL",
+  // footer_url: "Footer URL",
 
   // Email IDs of the authors.
-  footer_email_ids: "Email IDs (separated by commas)",
+  // footer_email_ids: "Email IDs (separated by commas)",
 
   // Color of the footer.
-  footer_color: "Hex Color Code",
+  // footer_color: "Hex Color Code",
 
   // DEFAULTS
   // ========
@@ -46,10 +46,10 @@
   univ_logo_scale: "100",
 
   // University logo's column size (in in).
-  univ_logo_column_size: "10",
+  univ_logo_column_size: "8",
 
   // Title and authors' column size (in in).
-  title_column_size: "20",
+  title_column_size: "22",
 
   // Poster title's font size (in pt).
   title_font_size: "48",
@@ -58,10 +58,10 @@
   authors_font_size: "36",
 
   // Footer's URL and email font size (in pt).
-  footer_url_font_size: "30",
+  // footer_url_font_size: "30",
 
   // Footer's text font size (in pt).
-  footer_text_font_size: "40",
+  // footer_text_font_size: "40",
 
   // The poster's content.
   body
@@ -77,8 +77,8 @@
   num_columns = int(num_columns)
   univ_logo_column_size = int(univ_logo_column_size) * 1in
   title_column_size = int(title_column_size) * 1in
-  footer_url_font_size = int(footer_url_font_size) * 1pt
-  footer_text_font_size = int(footer_text_font_size) * 1pt
+  // footer_url_font_size = int(footer_url_font_size) * 1pt
+  // footer_text_font_size = int(footer_text_font_size) * 1pt
 
   // Configure the page.
   // This poster defaults to 36in x 24in.
@@ -87,24 +87,8 @@
     height: height,
     margin: 
       (top: 1in, left: 2in, right: 2in, bottom: 2in),
-    footer: [
-      #set align(center)
-      #set text(32pt)
-      #block(
-        fill: rgb(footer_color),
-        width: 100%,
-        inset: 20pt,
-        radius: 10pt,
-        [
-          #text(font: "Courier", size: footer_url_font_size, footer_url) 
-          #h(1fr) 
-          #text(size: footer_text_font_size, smallcaps(footer_text)) 
-          #h(1fr) 
-          #text(font: "Courier", size: footer_url_font_size, footer_email_ids)
-        ]
-      )
-    ]
   )
+  
 
   // Configure equation numbering and spacing.
   set math.equation(numbering: "(1)")
@@ -172,6 +156,8 @@
           "   (" + departments + ") "),
     )
   )
+  
+ show figure: set align(center)
 
   // Start three column mode and configure paragraph properties.
   show: columns.with(num_columns, gutter: 64pt)

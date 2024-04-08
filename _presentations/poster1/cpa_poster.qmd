@@ -1,114 +1,123 @@
 ---
-title: "Assessing Demographic Variability in Machine Learning Model Performance to Predict Alcohol Lapses"
+title: "Evaluating Algorithmic Fairness in Predicting Temporal Alcohol Lapse Risks with Machine Learning Models"
 format:
   poster-typst: 
     size: "36x24"
     poster-authors: "Jiachen Yu, Kendra Wyant, Sarah Sant'Ana, Gaylen Fronk, John Curtin."
     departments: "Department of Psychology"
     institution-logo: "./images/logo.jpg"
-    footer-text: "posit::conf 2023"
-    footer-url: "https://posit.co/conference/"
-    footer-emails: "abc@example.com"
-    footer-color: "A0DAE0"
+    # footer-text: "posit::conf 2023"
+    # footer-url: "https://posit.co/conference/"
+    # footer-emails: "abc@example.com"
+    # footer-color: "A0DAE0"
     # keywords: ["Typesetting", "Typst", "Quarto"]
 ---
 
 <!--Lets improve the title-->
-<!--Need to remove the blue bar at bottom of poster.  Get susan's help on that -->
 
-<!--need to decide where to put this figure.  Maybe in participants section below-->
-{{< embed ../../notebooks/demographics.qmd#pie_chart >}}
+::: {.block fill="rgb(187, 227, 220)" inset="12pt" radius="8pt"}
 
-# Overview and Goals 
+# Overview and Goals
 
 ## Alcohol Lapse Prediction
 
-- Developed an XGBoost machine learning model to predict alcohol lapses in the next 24 hours using ecological momentary assessments (EMA) (INSERT REF)
-- Model has exceptional performance when predicting lapses for new (held-out) individuals
-- Locally important features can identify the factors that contribute to lapse risk for any specific person and moment in time
-- A "smart" digital therapeutic (smart DTx) could use algorithms based on this model to monitor lapse risk and recommend personalized, optimal interventions and other supports for momentary risks
+-   Developed an XGBoost machine learning model to predict alcohol lapses in the next 24 hours using ecological momentary assessments (EMA; Wyant et al., 2023)
+-   Model has exceptional performance when predicting lapses for new individuals (mean auROC = .90)
+-   Locally important features can identify the factors that contribute to lapse risk for any specific person and moment in time
+-   A "smart" digital therapeutic (smart DTx) could use algorithms based on this model to monitor lapse risk and recommend personalized, optimal interventions and other supports for momentary risks
 
 ## Algorithmic Bias
 
-- Less privileged, marginalized groups display mental health treatment disparities due to barriers related to affordability, accessibility, availability, and acceptability of mental healthcare
-- Smart DTx can partially address these barriers by providing 24/7/365, affordable, personalized support  
-- However, if embedded algorithms perform relatively worse for less privileged groups, their use may exacerbate rather than reduce treatment disparities
+-   Less privileged, marginalized groups display mental health treatment disparities due to barriers related to affordability, accessibility, availability, and acceptability of mental healthcare
+-   Smart DTx can partially address these barriers by providing 24/7/365, affordable, personalized support\
+-   However, if embedded algorithms perform relatively worse for less privileged groups, their use may exacerbate rather than reduce treatment disparities
 
-**GOAL: Evaluate potential algorithmic bias across historically privileged and unprivileged groups**<!--use color too-->
+> [**GOAL: Evaluate potential algorithmic bias across historically privileged and unprivileged groups**]{style="color:red"}
+
+:::
+
+::: {.block fill="rgb(218, 215, 232)" inset="12pt" radius="8pt"}
 
 # Methods
 
 ## Participants
 
-- N = 151
-- Early remission from Alcohol Use Disorder
-- Endorsed abstinence goal 
+-   N = 151
+-   Early remission from Alcohol Use Disorder
+-   Endorsed abstinence goal
+
+{{< embed ../../notebooks/demographics.qmd#pie_chart >}}
 
 ## Procedure
 
-- Personal sensing via smartphone for up to 3 months
-- 4x daily (craving, affect, efficacy, risky situations, stressful events, pleasant events)
-- Self-reported lapses back to alcohol use    
+-   Personal sensing via smartphone for up to 3 months
+-   4x daily (craving, affect, efficacy, risky situations, stressful events, pleasant events)
+-   Self-reported lapses back to alcohol use
 
 ## Machine Learning Model
 
-- XGBoost classification model
-- Features based on previous EMA
-- Provides hour-by-hour probability for future (next 24 hour) lapse
-<!--maybe report performance here instead?-->
+-   XGBoost classification model
+-   Features based on previous EMA
+-   Provides hour-by-hour probability for future (next 24 hour) lapse  <!--maybe report performance here instead?-->
 
 ## Sensitive Attributes
 
-<!--same order of priv vs. non-priv-->
-<!--same order as results presented-->
-<!--start with race/ethnicity-->
-<!-- make all consistent format group vs. group-->
-- Sex: Female vs. Male
-- Race/Ethnicity: Non-hispanic White vs. People of Color
-- income: 50% of median personal income in Madison (\$15k)
-- age: 55 or older
+-   **Race/Ethnicity**: Non-hispanic White vs. People of Color
+-   **Sex**: Male vs. Female
+-   **income**: above 50% of median personal income in Madison (\$15k) vs. below
+-   **age**: 55 or younger vs. above 55
 
 ## Performance Metrics
 
-<!--bullet point with brief definitions-->
-    -   auROC, auPRC, PPV, sensitivity, specificity
+-   auROC: true positive rate (sensitivity) against true negative rate (specificity) across thresholds
+
+-   auPR: sensitivity against positive predictive value (ppv) across thresholds
 
 ## Statistical Analysis
 
-- 30 held-out performance estimates (from nested k-fold cross validation) for each metric
-- Posterior probabilities of group differences estimated using Bayesian generalized mixed effect models 
+-   30 held-out performance estimates (from nested k-fold cross validation) for each metric
+-   Posterior probabilities of group differences estimated using Bayesian generalized mixed effect models
 
+:::
+
+::: {.block fill="rgb(179, 207, 232)" inset="12pt" radius="8pt"}
 # Results
 
 <!--need to get this figures in center of poster and bigger-->
-{{< embed ../../notebooks/aggregated_plot.qmd#bar_plot >}}
 
--   auROCs are higher for males than females, probably primarily driven by specificity.
+{{< embed ../../notebooks/aggregated_plot.qmd#bar_plot >}} 
 
 -   Models perform systematically better for White individuals than People of Color.
 
--   Both auROCs and auPRs are higher in people with higher income, probably due to significant differences in sensitivity.
+-   auROCs are higher for males than females, probably primarily driven by specificity.
 
--   auROCs, sensitivity, and specificity are significantly higher for younger population. auPRs are not significantly different between the two groups, but ppv is higher in younger people.
+-   Both auROCs and auPRs are higher in people with higher income, probably due to sensitivity.
+
+-   auROCs, sensitivity, specificity and ppv are significantly higher for younger population.
+
+:::
+
+::: {.block fill="rgb(209, 229, 163)" inset="12pt" radius="8pt"}
 
 # Conclusions
 
-- Substantially poorer model performance for people of color
-- Modestly poorer model performance for groups defined by sex, income, and age
-- Representation in training data is clearly important
-- Bias may also result from selection of features using domain expertise based on decades of research focused on predominately white men
+-   Substantially poorer model performance for people of color
+-   Modestly poorer model performance for groups defined by sex, income, and age
+-   Representation in training data is clearly important
+-   Bias may also result from selection of features using domain expertise based on decades of research focused on predominately white men
 
 # Next Steps
 
-- Evaluate methods to reduce algorithmic bias
-  - More representative training data (NIDA project)
-  - Resampling to increase representation
-  - Modified cost functions to differential penalize errors based on privilege
-  - Control for privilege when predicting
-  - More representative features
+-   Evaluate methods to reduce algorithmic bias
+    -   More representative training data (NIDA project)
+    -   Resampling to increase representation
+    -   Modified cost functions to differential penalize errors based on privilege
+    -   Control for privilege when predicting
+    -   More representative features
+-   Expand evaluation of privilege
+    -   Rural group, Education
+    -   AUD Severity
+    -   Intersectional analyses
+    -   Bias in treatment/support recommendations
 
-- Expand evaluation of privilege
-  - Rural group
-  - Education <!-- not sure if this is worth highlighting-->
-  - Intersectional analyses
-  - Bias in treatment/support recommendations
+:::
