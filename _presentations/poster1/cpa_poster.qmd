@@ -35,7 +35,10 @@ format:
 -   However, if embedded algorithms perform relatively worse for less privileged groups, their use may exacerbate rather than reduce treatment disparities
 \
 
-### GOAL: Evaluate algorithmic fairness across historically privileged and unprivileged groups
+### GOAL: Evaluate algorithmic fairness across historically
+\
+
+### privileged and unprivileged groups
 
 
 :::
