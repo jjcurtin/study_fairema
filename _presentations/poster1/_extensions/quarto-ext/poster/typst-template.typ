@@ -86,7 +86,7 @@
     width: width,
     height: height,
     margin: 
-      (top: 1in, left: 2in, right: 2in, bottom: 2in),
+      (top: 1in, left: 1in, right: 1in, bottom: 1in),
   )
   
 
