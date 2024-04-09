@@ -716,7 +716,7 @@
 </div>
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"_presentations/poster1/images/barplot_age1.png"</span>, a1,  <span class="at">bg=</span><span class="st">"transparent"</span>, <span class="at">width =</span> gg_width, <span class="at">height =</span> gg_width)</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"_presentations/poster1/images/barplot_age2.png"</span>, a2, <span class="at">bg=</span><span class="st">"transparent"</span>, <span class="at">width =</span> gg_width, <span class="at">height =</span> gg_width)</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"_presentations/poster1/images/barplot_race.png"</span>, r, <span class="at">bg=</span><span class="st">"transparent"</span>, <span class="at">width =</span> gg_width, <span class="at">height =</span> gg_width)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"_presentations/poster1/images/barplot_race.png"</span>, r, <span class="at">bg=</span><span class="st">"transparent"</span>, <span class="at">width =</span> gg_width, <span class="at">height =</span> gg_width<span class="sc">*</span><span class="dv">2</span>)</span>
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"_presentations/poster1/images/barplot_sex.png"</span>, s, <span class="at">bg=</span><span class="st">"transparent"</span>, <span class="at">width =</span> gg_width, <span class="at">height =</span> gg_width)</span>
 <span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"_presentations/poster1/images/barplot_income.png"</span>, i, <span class="at">bg=</span><span class="st">"transparent"</span>, <span class="at">width =</span> gg_width, <span class="at">height =</span> gg_width)</span>
 <span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"_presentations/poster1/images/barplot_age.png"</span>, a, <span class="at">bg=</span><span class="st">"transparent"</span>, <span class="at">width =</span> gg_width, <span class="at">height =</span> gg_width)</span>
@@ -1139,7 +1139,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"loop":false,"openEffect":"zoom","selector":".lightbox","closeEffect":"zoom","descPosition":"bottom"});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"closeEffect":"zoom","descPosition":"bottom","loop":false,"openEffect":"zoom","selector":".lightbox"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;
