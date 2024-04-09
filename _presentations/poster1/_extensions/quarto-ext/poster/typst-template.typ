@@ -67,7 +67,7 @@
   body
 ) = {
   // Set the body font.
-  set text(font: "Arial", size: 32pt)
+  set text(font: "Arial", size: 31pt)
   let sizes = size.split("x")
   let width = int(sizes.at(0)) * 1in
   let height = int(sizes.at(1)) * 1in
@@ -136,10 +136,10 @@
     ] else [
       // Third level headings are run-ins too, but different.
       #if it.level == 3 {
-        numbering("1)", deepest)
-        [ ]
+
+        [        #set text(weight: "medium") ]
       }
-      _#(it.body):_
+      #(it.body)
     ]
   })
 

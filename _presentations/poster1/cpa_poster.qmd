@@ -3,13 +3,13 @@ title: "Alcohol Lapse Risk Prediction with Machine Learning: Evaluating Algorith
 format:
   poster-typst: 
     size: "63x42"
-    poster-authors: "Jiachen Yu, Kendra Wyant, Sarah Sant'Ana, Gaylen Fronk, John Curtin."
+    poster-authors: "Jiachen Yu, Kendra Wyant, Sarah Sant'Ana, Gaylen Fronk, John Curtin"
     departments: "Department of Psychology"
     institution-logo: "./images/logo.jpg"
-    # footer-text: "posit::conf 2023"
+    # footer-text: 
     # footer-url: "https://posit.co/conference/"
     # footer-emails: "abc@example.com"
-    # footer-color: "A0DAE0"
+    # footer-color: "ffffff"
     # keywords: ["Typesetting", "Typst", "Quarto"]
 ---
 
@@ -33,9 +33,10 @@ format:
 -   Less privileged, marginalized groups display mental health treatment disparities due to barriers related to affordability, accessibility, availability, and acceptability of mental healthcare
 -   Smart DTx can partially address these barriers by providing 24/7/365, affordable, personalized support
 -   However, if embedded algorithms perform relatively worse for less privileged groups, their use may exacerbate rather than reduce treatment disparities
+\
 
+### GOAL: Evaluate algorithmic fairness across historically privileged and unprivileged groups
 
-> [**GOAL: Evaluate algorithmic fairness across historically privileged and unprivileged groups**]{style="color:red"}
 
 :::
 
@@ -61,14 +62,15 @@ format:
     -   Modified cost functions to differential penalize errors based on privilege
     -   Control for privilege when predicting
     -   More representative features
-
-
 -   Expand evaluation of privilege
     -   Rural vs urban/suburban; Education level
     -   AUD severity
     -   Intersectional analyses
     -   Fairness in treatment/support recommendations
+ 
 :::
+Research supported by NIH under NIDA award R01DA047315 and NIAAA award R01AA024391.
+
 
 <!--Column 2: Result Figures-->
 
@@ -78,13 +80,13 @@ format:
 # Results
 
 
-![](images/barplot_race.png){fig-align="center" width=49% height=44%}
-![](images/barplot_sex.png){fig-align="center" width=49% height=44%}
-
+![Race](images/barplot_race.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+![](images/barplot_sex.png)
+\
+![](images/barplot_income.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+![](images/barplot_age.png)
 \
 
-![](images/barplot_income.png){fig-align="center" width=49% height=44%}
-![](images/barplot_age.png){fig-align="center" width=49% height=44%}
 
 :::
 
@@ -117,6 +119,7 @@ format:
 -   **Age**: 55 or younger vs. above 55
 
 <!--Coco - You should orgainze the order of the plots to follow the same way you display them in the resutls figures.  top row: race, sex, bottom row: income, age-->
+
 
 ![](images/piechart.png){fig-align="center" width=80%}
 
