@@ -207,6 +207,7 @@ r1 <-     df_race |>
     plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
     panel.grid.major = element_blank(), #remove major gridlines
     panel.grid.minor = element_blank(), #remove minor gridlines
+    strip.background =element_rect(fill="transparent"),
     legend.background = element_rect(fill='transparent'), #transparent legend bg
     legend.box.background = element_rect(fill='transparent') #transparent legend panel
   )
@@ -236,6 +237,7 @@ r2 <-     df_race |>
     plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
     panel.grid.major = element_blank(), #remove major gridlines
     panel.grid.minor = element_blank(), #remove minor gridlines
+    strip.background =element_rect(fill="transparent"),
     legend.background = element_rect(fill='transparent'), #transparent legend bg
     legend.box.background = element_rect(fill='transparent') #transparent legend panel
   )
@@ -269,6 +271,7 @@ s1 <-     df_sex |>
     plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
     panel.grid.major = element_blank(), #remove major gridlines
     panel.grid.minor = element_blank(), #remove minor gridlines
+    strip.background =element_rect(fill="transparent"),
     legend.background = element_rect(fill='transparent'), #transparent legend bg
     legend.box.background = element_rect(fill='transparent') #transparent legend panel
   )
@@ -298,6 +301,7 @@ s2 <-     df_sex |>
     plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
     panel.grid.major = element_blank(), #remove major gridlines
     panel.grid.minor = element_blank(), #remove minor gridlines
+    strip.background =element_rect(fill="transparent"),
     legend.background = element_rect(fill='transparent'), #transparent legend bg
     legend.box.background = element_rect(fill='transparent') #transparent legend panel
   )
@@ -334,6 +338,7 @@ i1 <-     df_income |>
     plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
     panel.grid.major = element_blank(), #remove major gridlines
     panel.grid.minor = element_blank(), #remove minor gridlines
+    strip.background =element_rect(fill="transparent"),
     legend.background = element_rect(fill='transparent'), #transparent legend bg
     legend.box.background = element_rect(fill='transparent') #transparent legend panel
   )
@@ -363,6 +368,7 @@ i2 <-     df_income |>
     plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
     panel.grid.major = element_blank(), #remove major gridlines
     panel.grid.minor = element_blank(), #remove minor gridlines
+    strip.background =element_rect(fill="transparent"),
     legend.background = element_rect(fill='transparent'), #transparent legend bg
     legend.box.background = element_rect(fill='transparent') #transparent legend panel
   )
@@ -399,6 +405,7 @@ a1 <-     df_age |>
     plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
     panel.grid.major = element_blank(), #remove major gridlines
     panel.grid.minor = element_blank(), #remove minor gridlines
+    strip.background =element_rect(fill="transparent"),
     legend.background = element_rect(fill='transparent'), #transparent legend bg
     legend.box.background = element_rect(fill='transparent') #transparent legend panel
   )
@@ -428,6 +435,7 @@ a2 <-     df_age  |>
     plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
     panel.grid.major = element_blank(), #remove major gridlines
     panel.grid.minor = element_blank(), #remove minor gridlines
+    strip.background =element_rect(fill="transparent"),
     legend.background = element_rect(fill='transparent'), #transparent legend bg
     legend.box.background = element_rect(fill='transparent') #transparent legend panel
   )
