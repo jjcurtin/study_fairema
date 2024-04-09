@@ -17,7 +17,7 @@ format:
 
 <!--Column 1, Panel 1-->
 
-::: {.block fill="rgb(187, 227, 220)" inset="12pt" radius="8pt"}
+::: {.block fill="rgb(187, 227, 220)" inset="24pt" radius="16pt"}
 # Overview and Goals
 
 ## Alcohol Lapse Prediction
@@ -41,9 +41,8 @@ format:
 
 <!--Column 1, Panel 2-->
 
-\
 
-::: {.block fill="rgb(209, 229, 163)" inset="12pt" radius="8pt"}
+::: {.block fill="rgb(209, 229, 163)" inset="24pt" radius="16pt"}
 # Conclusions
 
 ## Summary
@@ -75,7 +74,7 @@ format:
 
 <!--Column 2, Panel 1-->
 
-::: {.block fill="rgb(179, 207, 232)" inset="12pt" radius="8pt"}
+::: {.block fill="rgb(179, 207, 232)" inset="24pt" radius="16pt"}
 # Results
 
 
@@ -93,7 +92,7 @@ format:
 
 <!-- Column 3, Panel 1-->
 
-::: {.block fill="rgb(218, 215, 232)" inset="12pt" radius="8pt"}
+::: {.block fill="rgb(218, 215, 232)" inset="24pt" radius="16pt"}
 # Methods
 
 ## Participants
