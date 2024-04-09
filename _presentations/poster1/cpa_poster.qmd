@@ -16,8 +16,8 @@ format:
 <!--Column 1: Overview, Conclusions, Next Steps-->
 
 <!--Column 1, Panel 1-->
-::: {.block fill="rgb(187, 227, 220)" inset="12pt" radius="8pt"}
 
+::: {.block fill="rgb(187, 227, 220)" inset="12pt" radius="8pt"}
 # Overview and Goals
 
 ## Alcohol Lapse Prediction
@@ -30,7 +30,7 @@ format:
 \
 \
 
-## Algorithmic Fairness 
+## Algorithmic Fairness
 
 -   Less privileged, marginalized groups display mental health treatment disparities due to barriers related to affordability, accessibility, availability, and acceptability of mental healthcare
 -   Smart DTx can partially address these barriers by providing 24/7/365, affordable, personalized support
@@ -39,13 +39,14 @@ format:
 \
 
 > [**GOAL: Evaluate algorithmic fairness across historically privileged and unprivileged groups**]{style="color:red"}
-
 :::
 
-
 <!--Column 1, Panel 2-->
-::: {.block fill="rgb(209, 229, 163)" inset="12pt" radius="8pt"}
 
+\
+\
+
+::: {.block fill="rgb(209, 229, 163)" inset="12pt" radius="8pt"}
 # Conclusions
 
 ## Summary
@@ -56,8 +57,11 @@ format:
 -   Poorer performance for some unprivileged groups may also result from selection of features using domain expertise based on decades of research focused on predominately white men
 
 <!--   Models perform systematically better for White individuals than People of Color.-->
+
 <!--   auROCs are higher for males than females, probably primarily driven by specificity.-->
+
 <!--   Both auROCs and auPRs are higher in people with higher income, probably due to sensitivity.-->
+
 <!-- auROCs, sensitivity, specificity and ppv are significantly higher for younger population.-->
 
 \
@@ -78,32 +82,32 @@ format:
     -   Rural vs urban/suburban; Education level
     -   AUD severity
     -   Intersectional analyses
-    -   Fainess in treatment/support recommendations
-
+    -   Fairness in treatment/support recommendations
 :::
-
 
 <!--Column 2: Result Figures-->
 
 <!--Column 2, Panel 1-->
-::: {.block fill="rgb(179, 207, 232)" inset="12pt" radius="8pt"}
 
+::: {.block fill="rgb(179, 207, 232)" inset="12pt" radius="8pt"}
 # Results
 
 
-{{< embed ../../notebooks/aggregated_plot.qmd#bar_plot >}} 
+![](images/barplot_race.png){fig-align="center" width=49% height=45%}
+![](images/barplot_sex.png){fig-align="center" width=49% height=45%}
 
 \
-\
-\
-\
+
+![](images/barplot_income.png){fig-align="center" width=49% height=45%}
+![](images/barplot_age.png){fig-align="center" width=49% height=45%}
+
 :::
 
 <!--Column 3: Methods-->
 
 <!-- Column 3, Panel 1-->
-::: {.block fill="rgb(218, 215, 232)" inset="12pt" radius="8pt"}
 
+::: {.block fill="rgb(218, 215, 232)" inset="12pt" radius="8pt"}
 # Methods
 
 ## Participants
@@ -112,11 +116,17 @@ format:
 -   Early remission from Alcohol Use Disorder
 -   Endorsed abstinence goal
 
+\
+\
+
 ## Procedure
 
 -   Personal sensing via smartphone for up to 3 months
 -   4x daily (craving, affect, efficacy, risky situations, stressful events, pleasant events)
 -   Self-reported lapses back to alcohol use
+
+\
+\
 
 ## Sensitive Attributes
 
@@ -127,18 +137,22 @@ format:
 
 <!--Coco - You should orgainze the order of the plots to follow the same way you display them in the resutls figures.  top row: race, sex, bottom row: income, age-->
 
-{{< embed ../../notebooks/demographics.qmd#pie_chart >}} 
+![](images/piechart.png){fig-align="center" }
+
+\
 
 ## Machine Learning Model
 
 -   XGBoost classification model
 -   Features based on previous EMA
--   Provides hour-by-hour probability for future (next 24 hour) lapse  <!--maybe report performance here instead?-->
+-   Provides hour-by-hour probability for future (next 24 hour) lapse
+
+\
+\
 
 ## Statistical Analysis
 
-- Compared groups (priviledged vs. unpriviledged) on two aggregate (auROC; auPR) and three specific (specificity, sensitivity, postive preditive value) peformance metrics
-- 30 held-out performance estimates (from nested k-fold cross validation) for each metric
-- Posterior probabilities of group differences estimated using Bayesian generalized mixed effect models
-
+-   Compared groups (priviledged vs. unpriviledged) on two aggregate (auROC; auPR) and three specific (specificity, sensitivity, postive preditive value) peformance metrics
+-   30 held-out performance estimates (from nested k-fold cross validation) for each metric
+-   Posterior probabilities of group differences estimated using Bayesian generalized mixed effect models
 :::

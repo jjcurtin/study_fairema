@@ -46,10 +46,10 @@
   univ_logo_scale: "100",
 
   // University logo's column size (in in).
-  univ_logo_column_size: "8",
+  univ_logo_column_size: "7",
 
   // Title and authors' column size (in in).
-  title_column_size: "22",
+  title_column_size: "23",
 
   // Poster title's font size (in pt).
   title_font_size: "48",
@@ -152,7 +152,7 @@
       row-gutter: 50pt,
       image(univ_logo, width: univ_logo_scale),
       text(title_font_size, title + "\n\n") + 
-      text(authors_font_size, authors + 
+      text(authors_font_size, authors + "\n\n" +
           "   (" + departments + ") "),
     )
   )

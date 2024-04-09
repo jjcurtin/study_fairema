@@ -38,6 +38,6 @@ editor_options:
 ---
 
 
-{{< embed notebooks/demographics.qmd#pie_chart >}}
+<!-- {{< embed notebooks/demographics.qmd#pie_chart >}} -->
 
-{{< embed notebooks/aggregated_plot.qmd#bar_plot >}}
+<!-- {{< embed notebooks/aggregated_plot.qmd#bar_plot >}} -->

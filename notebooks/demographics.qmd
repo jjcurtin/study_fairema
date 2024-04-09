@@ -128,6 +128,12 @@ p <- output |>
       subgroup == "below_poverty" ~ "unprivileged",
       subgroup == "younger" ~ "privileged",
       subgroup == "older" ~ "unprivileged"
+    ),
+    demographics = case_when(
+      demographics == "sex" ~ "Sex",
+      demographics == "race" ~ "Race",
+      demographics == "income" ~ "Income",
+      demographics == "age" ~ "Age"
     )
   ) |> 
  ggplot(aes(x = "", y = N, fill = subgroup)) + 
@@ -147,7 +153,7 @@ p <- output |>
   )), position = position_stack(vjust = 0.5)) +
   theme_void() +
   theme(legend.title=element_blank(), legend.position = "bottom") +
-  facet_wrap(~demographics) +
-  theme(strip.text.x = element_text(size = 14)) 
+  facet_wrap(~factor(demographics, levels = c("Race", "Sex", "Income", "Age"))) +
+  theme(strip.text.x = element_text(size = 16, face="bold")) 
   ggsave("_presentations/poster1/images/piechart.png", p,  bg="transparent")
 ```
