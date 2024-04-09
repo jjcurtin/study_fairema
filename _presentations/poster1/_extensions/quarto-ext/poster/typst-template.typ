@@ -67,7 +67,7 @@
   body
 ) = {
   // Set the body font.
-  set text(font: "Arial", size: 16pt)
+  set text(font: "Arial", size: 32pt)
   let sizes = size.split("x")
   let width = int(sizes.at(0)) * 1in
   let height = int(sizes.at(1)) * 1in
@@ -109,30 +109,30 @@
       1
     }
 
-    set text(24pt, weight: 400)
+    set text(48pt, weight: 800)
     if it.level == 1 [
       // First-level headings are centered smallcaps.
       #set align(center)
-      #set text({ 32pt })
+      #set text({ 64pt })
       #show: smallcaps
-      #v(50pt, weak: true)
+      #v(100pt, weak: true)
       #if it.numbering != none {
         numbering("I.", deepest)
-        h(7pt, weak: true)
+        h(14pt, weak: true)
       }
       #it.body
-      #v(35.75pt, weak: true)
+      #v(71.5pt, weak: true)
       #line(length: 100%)
     ] else if it.level == 2 [
       // Second-level headings are run-ins.
       #set text(weight: "bold")
-      #v(32pt, weak: true)
+      #v(64pt, weak: true)
       #if it.numbering != none {
         numbering("i.", deepest)
-        h(7pt, weak: true)
+        h(14pt, weak: true)
       }
       #it.body
-      #v(10pt, weak: true)
+      #v(20pt, weak: true)
     ] else [
       // Third level headings are run-ins too, but different.
       #if it.level == 3 {
@@ -147,12 +147,12 @@
   align(center,
     grid(
       rows: 2,
-      columns: (univ_logo_column_size, title_column_size),
+      columns: (univ_logo_column_size*2, title_column_size*2),
       column-gutter: 0pt,
-      row-gutter: 50pt,
+      row-gutter: 100pt,
       image(univ_logo, width: univ_logo_scale),
-      text(title_font_size, title + "\n\n") + 
-      text(authors_font_size, authors + "\n\n" +
+      text(title_font_size*2, title + "\n\n") + 
+      text(authors_font_size*2, authors + "\n\n" +
           "   (" + departments + ") "),
     )
   )
@@ -162,7 +162,7 @@
   // Start three column mode and configure paragraph properties.
   show: columns.with(num_columns, gutter: 64pt)
   set par(justify: true, first-line-indent: 0em)
-  show par: set block(spacing: 0.65em)
+  show par: set block(spacing: 1.3em)
 
   // Display the keywords.
   if keywords != () [

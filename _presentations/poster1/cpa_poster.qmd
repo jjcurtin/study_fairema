@@ -2,7 +2,7 @@
 title: "Alcohol Lapse Risk Prediction with Machine Learning: Evaluating Algorithmic Fairness"
 format:
   poster-typst: 
-    size: "36x24"
+    size: "63x42"
     poster-authors: "Jiachen Yu, Kendra Wyant, Sarah Sant'Ana, Gaylen Fronk, John Curtin."
     departments: "Department of Psychology"
     institution-logo: "./images/logo.jpg"
@@ -25,10 +25,8 @@ format:
 -   Developed an XGBoost machine learning model to predict alcohol lapses in the next 24 hours using ecological momentary assessments (EMA; Wyant et al., 2023)
 -   Model has exceptional performance when predicting lapses for new individuals (mean auROC = .90)
 -   Locally important features can identify the factors that contribute to lapse risk for any specific person and moment in time
--   A "smart" digital therapeutic (smart DTx) could use algorithms based on this model to monitor lapse risk and recommend personalized, optimal interventions and other supports for momentary risks
+-   A "smart" digital therapeutic (smart DTx) could use algorithms based on this model to monitor lapse risk and recommend personalized, optimal interventions and supports for momentary risks
 
-\
-\
 
 ## Algorithmic Fairness
 
@@ -36,14 +34,13 @@ format:
 -   Smart DTx can partially address these barriers by providing 24/7/365, affordable, personalized support
 -   However, if embedded algorithms perform relatively worse for less privileged groups, their use may exacerbate rather than reduce treatment disparities
 
-\
 
 > [**GOAL: Evaluate algorithmic fairness across historically privileged and unprivileged groups**]{style="color:red"}
+
 :::
 
 <!--Column 1, Panel 2-->
 
-\
 \
 
 ::: {.block fill="rgb(209, 229, 163)" inset="12pt" radius="8pt"}
@@ -56,16 +53,6 @@ format:
 -   Representation in training data is clearly important
 -   Poorer performance for some unprivileged groups may also result from selection of features using domain expertise based on decades of research focused on predominately white men
 
-<!--   Models perform systematically better for White individuals than People of Color.-->
-
-<!--   auROCs are higher for males than females, probably primarily driven by specificity.-->
-
-<!--   Both auROCs and auPRs are higher in people with higher income, probably due to sensitivity.-->
-
-<!-- auROCs, sensitivity, specificity and ppv are significantly higher for younger population.-->
-
-\
-\
 
 ## Next Steps
 
@@ -76,7 +63,6 @@ format:
     -   Control for privilege when predicting
     -   More representative features
 
-\
 
 -   Expand evaluation of privilege
     -   Rural vs urban/suburban; Education level
@@ -93,13 +79,13 @@ format:
 # Results
 
 
-![](images/barplot_race.png){fig-align="center" width=49% height=45%}
-![](images/barplot_sex.png){fig-align="center" width=49% height=45%}
+![](images/barplot_race.png){fig-align="center" width=49% height=44%}
+![](images/barplot_sex.png){fig-align="center" width=49% height=44%}
 
 \
 
-![](images/barplot_income.png){fig-align="center" width=49% height=45%}
-![](images/barplot_age.png){fig-align="center" width=49% height=45%}
+![](images/barplot_income.png){fig-align="center" width=49% height=44%}
+![](images/barplot_age.png){fig-align="center" width=49% height=44%}
 
 :::
 
@@ -116,8 +102,6 @@ format:
 -   Early remission from Alcohol Use Disorder
 -   Endorsed abstinence goal
 
-\
-\
 
 ## Procedure
 
@@ -125,8 +109,6 @@ format:
 -   4x daily (craving, affect, efficacy, risky situations, stressful events, pleasant events)
 -   Self-reported lapses back to alcohol use
 
-\
-\
 
 ## Sensitive Attributes
 
@@ -137,9 +119,8 @@ format:
 
 <!--Coco - You should orgainze the order of the plots to follow the same way you display them in the resutls figures.  top row: race, sex, bottom row: income, age-->
 
-![](images/piechart.png){fig-align="center" }
+![](images/piechart.png){fig-align="center" width=80%}
 
-\
 
 ## Machine Learning Model
 
@@ -147,8 +128,6 @@ format:
 -   Features based on previous EMA
 -   Provides hour-by-hour probability for future (next 24 hour) lapse
 
-\
-\
 
 ## Statistical Analysis
 
