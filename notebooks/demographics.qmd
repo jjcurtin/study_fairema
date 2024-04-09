@@ -117,7 +117,7 @@ output <- output[c(2, 1, 4, 3, 5, 6, 8, 7),]
 #| fig-width: 7.3
 #| fig-height: 5.2
 
-output |> 
+p <- output |> 
   mutate(
     subgroup = case_when(
       subgroup == "Female" ~ "unprivileged",
@@ -130,7 +130,7 @@ output |>
       subgroup == "older" ~ "unprivileged"
     )
   ) |> 
-  ggplot(aes(x = "", y = N, fill = subgroup)) + 
+ ggplot(aes(x = "", y = N, fill = subgroup)) + 
   geom_bar(stat="identity", width=1) +
   coord_polar("y", start=0) +
   scale_fill_manual(values = c("privileged" = "#6CAA2F",
@@ -148,5 +148,6 @@ output |>
   theme_void() +
   theme(legend.title=element_blank(), legend.position = "bottom") +
   facet_wrap(~demographics) +
-  theme(strip.text.x = element_text(size = 14))
+  theme(strip.text.x = element_text(size = 14)) 
+  ggsave("_presentations/poster1/images/piechart.png", p,  bg="transparent")
 ```
