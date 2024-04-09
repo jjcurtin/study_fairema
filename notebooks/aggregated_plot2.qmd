@@ -472,6 +472,10 @@ ggsave("_presentations/poster1/images/barplot_income1.png", i1,  bg="transparent
 ggsave("_presentations/poster1/images/barplot_income2.png", i2, bg="transparent", width = gg_width, height = gg_width)
 ggsave("_presentations/poster1/images/barplot_age1.png", a1,  bg="transparent", width = gg_width, height = gg_width)
 ggsave("_presentations/poster1/images/barplot_age2.png", a2, bg="transparent", width = gg_width, height = gg_width)
+ggsave("_presentations/poster1/images/barplot_race.png", r, bg="transparent", width = gg_width, height = gg_width)
+ggsave("_presentations/poster1/images/barplot_sex.png", s, bg="transparent", width = gg_width, height = gg_width)
+ggsave("_presentations/poster1/images/barplot_income.png", i, bg="transparent", width = gg_width, height = gg_width)
+ggsave("_presentations/poster1/images/barplot_age.png", a, bg="transparent", width = gg_width, height = gg_width)
 ggsave("_presentations/poster1/images/barplot_sex_race.png", sr, bg="transparent", width = gg_width, height = gg_width)
 ggsave("_presentations/poster1/images/barplot_income_age.png", ia, bg="transparent", width = gg_width, height = gg_width)
 
