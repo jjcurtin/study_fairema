@@ -80,12 +80,14 @@ Research supported by NIH under NIDA award R01DA047315 and NIAAA award R01AA0243
 # Results
 
 
-![Race](images/barplot_race.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+![](images/barplot_race.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 ![](images/barplot_sex.png)
+\
+\
 \
 ![](images/barplot_income.png)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 ![](images/barplot_age.png)
-\
+
 
 
 :::
@@ -121,7 +123,7 @@ Research supported by NIH under NIDA award R01DA047315 and NIAAA award R01AA0243
 <!--Coco - You should orgainze the order of the plots to follow the same way you display them in the resutls figures.  top row: race, sex, bottom row: income, age-->
 
 
-![](images/piechart.png){fig-align="center" width=80%}
+![](images/piechart.png){fig-align="center" height=11.3in}
 
 
 ## Machine Learning Model
