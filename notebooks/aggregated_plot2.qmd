@@ -196,7 +196,7 @@ r1 <-     df_race |>
             axis.line.x = element_blank(),
             axis.ticks.x = element_blank(),
             plot.margin = margin(1, 1, 1, 1, "pt"),
-            legend.text = element_text(size=7),
+            legend.text = element_text(size=9),
             legend.title=element_blank()) +
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
@@ -232,7 +232,7 @@ r2 <-     df_race |>
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
       guides(fill=guide_legend(nrow=2, byrow=TRUE)) +
-      geom_text(aes(label = sig, y = 0), color = "blue", size = 7)+ 
+      geom_text(aes(label = sig, y = 0), color = "blue", size = 9)+ 
   theme(
     panel.background = element_rect(fill='transparent'), #transparent panel bg
     plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
@@ -265,7 +265,7 @@ s1 <-     df_sex |>
             axis.line.x = element_blank(),
             axis.ticks.x = element_blank(),
             plot.margin = margin(1, 1, 1, 1, "pt"),
-            legend.text = element_text(size=7),
+            legend.text = element_text(size=9),
             legend.title=element_blank()) +
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
@@ -277,6 +277,7 @@ s1 <-     df_sex |>
     panel.grid.major = element_blank(), #remove major gridlines
     panel.grid.minor = element_blank(), #remove minor gridlines
     strip.background =element_rect(fill="transparent"),
+    strip.text = element_text(size = 16),
     legend.background = element_rect(fill='transparent'), #transparent legend bg
     legend.box.background = element_rect(fill='transparent') #transparent legend panel
   )
@@ -295,7 +296,7 @@ s2 <-     df_sex |>
             axis.line.x = element_blank(),
             axis.ticks.x = element_blank(),
             plot.margin = margin(1, 1, 1, 1, "pt"),
-            legend.text = element_text(size=7),
+            legend.text = element_text(size=9),
             legend.title=element_blank()) + 
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
@@ -307,13 +308,14 @@ s2 <-     df_sex |>
     panel.grid.major = element_blank(), #remove major gridlines
     panel.grid.minor = element_blank(), #remove minor gridlines
     strip.background =element_rect(fill="transparent"),
+    strip.text = element_text(size = 16),
     legend.background = element_rect(fill='transparent'), #transparent legend bg
     legend.box.background = element_rect(fill='transparent') #transparent legend panel
   )
 
 
-s <- ggarrange(s1, s2, ncol = 1, common.legend = TRUE, legend = "bottom")
-s <- annotate_figure(s, top = text_grob("Sex", face = "bold"))
+s <- ggarrange(s1, s2, ncol = 1, common.legend = TRUE, legend = "bottom") |> 
+  annotate_figure(top = text_grob("Sex", face = "bold", size =20))
 ```
 
 
@@ -332,7 +334,7 @@ i1 <-     df_income |>
             axis.line.x = element_blank(),
             axis.ticks.x = element_blank(),
             plot.margin = margin(1, 1, 1, 1, "pt"),
-            legend.text = element_text(size=7),
+            legend.text = element_text(size=9),
             legend.title=element_blank()) +
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
@@ -344,6 +346,7 @@ i1 <-     df_income |>
     panel.grid.major = element_blank(), #remove major gridlines
     panel.grid.minor = element_blank(), #remove minor gridlines
     strip.background =element_rect(fill="transparent"),
+    strip.text = element_text(size = 16),
     legend.background = element_rect(fill='transparent'), #transparent legend bg
     legend.box.background = element_rect(fill='transparent') #transparent legend panel
   )
@@ -362,7 +365,7 @@ i2 <-     df_income |>
             axis.line.x = element_blank(),
             axis.ticks.x = element_blank(),
             plot.margin = margin(1, 1, 1, 1, "pt"),
-            legend.text = element_text(size=7),
+            legend.text = element_text(size=9),
             legend.title=element_blank()) + 
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
@@ -374,13 +377,14 @@ i2 <-     df_income |>
     panel.grid.major = element_blank(), #remove major gridlines
     panel.grid.minor = element_blank(), #remove minor gridlines
     strip.background =element_rect(fill="transparent"),
+    strip.text = element_text(size = 16),
     legend.background = element_rect(fill='transparent'), #transparent legend bg
     legend.box.background = element_rect(fill='transparent') #transparent legend panel
   )
 
 
-i <- ggarrange(i1, i2, ncol = 1, common.legend = TRUE, legend = "bottom")
-i <- annotate_figure(i, top = text_grob("Income", face = "bold"))
+i <- ggarrange(i1, i2, ncol = 1, common.legend = TRUE, legend = "bottom") |> 
+  annotate_figure(top = text_grob("Income", face = "bold", size =20))
 ```
 
 
@@ -399,7 +403,7 @@ a1 <-     df_age |>
             axis.line.x = element_blank(),
             axis.ticks.x = element_blank(),
             plot.margin = margin(1, 1, 1, 1, "pt"),
-            legend.text = element_text(size=7),
+            legend.text = element_text(size=9),
             legend.title=element_blank()) +
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
@@ -411,6 +415,7 @@ a1 <-     df_age |>
     panel.grid.major = element_blank(), #remove major gridlines
     panel.grid.minor = element_blank(), #remove minor gridlines
     strip.background =element_rect(fill="transparent"),
+    strip.text = element_text(size = 16),
     legend.background = element_rect(fill='transparent'), #transparent legend bg
     legend.box.background = element_rect(fill='transparent') #transparent legend panel
   )
@@ -429,7 +434,7 @@ a2 <-     df_age  |>
             axis.line.x = element_blank(),
             axis.ticks.x = element_blank(),
             plot.margin = margin(1, 1, 1, 1, "pt"),
-            legend.text = element_text(size=7),
+            legend.text = element_text(size=9),
             legend.title=element_blank()) + 
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
@@ -441,13 +446,14 @@ a2 <-     df_age  |>
     panel.grid.major = element_blank(), #remove major gridlines
     panel.grid.minor = element_blank(), #remove minor gridlines
     strip.background =element_rect(fill="transparent"),
+    strip.text = element_text(size = 16),
     legend.background = element_rect(fill='transparent'), #transparent legend bg
     legend.box.background = element_rect(fill='transparent') #transparent legend panel
   )
 
 
-a <- ggarrange(a1, a2, ncol = 1, common.legend = TRUE, legend = "bottom")
-a <- annotate_figure(a, top = text_grob("Age", face = "bold"))
+a <- ggarrange(a1, a2, ncol = 1, common.legend = TRUE, legend = "bottom") |> 
+  annotate_figure(top = text_grob("Age", face = "bold", size =20))
 ```
 
 ```{r}
@@ -477,10 +483,10 @@ ggsave("_presentations/poster1/images/barplot_income1.png", i1,  bg="transparent
 ggsave("_presentations/poster1/images/barplot_income2.png", i2, bg="transparent", width = gg_width, height = gg_width)
 ggsave("_presentations/poster1/images/barplot_age1.png", a1,  bg="transparent", width = gg_width, height = gg_width)
 ggsave("_presentations/poster1/images/barplot_age2.png", a2, bg="transparent", width = gg_width, height = gg_width)
-ggsave("_presentations/poster1/images/barplot_race.png", r, bg="transparent", width = gg_width, height = gg_width*1.5)
-ggsave("_presentations/poster1/images/barplot_sex.png", s, bg="transparent", width = gg_width, height = gg_width*1.5)
-ggsave("_presentations/poster1/images/barplot_income.png", i, bg="transparent", width = gg_width, height = gg_width*1.5)
-ggsave("_presentations/poster1/images/barplot_age.png", a, bg="transparent", width = gg_width, height = gg_width*1.5)
+ggsave("_presentations/poster1/images/barplot_race.png", r, bg="transparent", width = gg_width, height = gg_width*1.7)
+ggsave("_presentations/poster1/images/barplot_sex.png", s, bg="transparent", width = gg_width, height = gg_width*1.7)
+ggsave("_presentations/poster1/images/barplot_income.png", i, bg="transparent", width = gg_width, height = gg_width*1.7)
+ggsave("_presentations/poster1/images/barplot_age.png", a, bg="transparent", width = gg_width, height = gg_width*1.7)
 ggsave("_presentations/poster1/images/barplot_sex_race.png", sr, bg="transparent", width = gg_width, height = gg_width)
 ggsave("_presentations/poster1/images/barplot_income_age.png", ia, bg="transparent", width = gg_width, height = gg_width)
 
