@@ -243,6 +243,7 @@ r2 <-     df_race |>
   )
 
 r <- ggarrange(r1, r2, ncol = 1, common.legend = TRUE, legend = "bottom")
+r <- annotate_figure(r, top = text_grob("Race", face = "bold"))
 ```
 
 ```{r sex}
@@ -308,7 +309,7 @@ s2 <-     df_sex |>
 
 
 s <- ggarrange(s1, s2, ncol = 1, common.legend = TRUE, legend = "bottom")
-
+s <- annotate_figure(s, top = text_grob("Sex", face = "bold"))
 ```
 
 
@@ -375,7 +376,7 @@ i2 <-     df_income |>
 
 
 i <- ggarrange(i1, i2, ncol = 1, common.legend = TRUE, legend = "bottom")
-
+i <- annotate_figure(i, top = text_grob("Income", face = "bold"))
 ```
 
 
@@ -442,18 +443,18 @@ a2 <-     df_age  |>
 
 
 a <- ggarrange(a1, a2, ncol = 1, common.legend = TRUE, legend = "bottom")
-
+a <- annotate_figure(a, top = text_grob("Age", face = "bold"))
 ```
 
 ```{r}
 sr <- ggarrange(
-  annotate_figure(r, top = text_grob("Race", face = "bold")),
-  annotate_figure(s, top = text_grob("Sex", face = "bold"))
+  r,
+  s
 )
 
 ia <- ggarrange(
-  annotate_figure(i, top = text_grob("Income", face = "bold")),
-  annotate_figure(a, top = text_grob("Age", face = "bold"))
+  i,
+  a
 )
 ```
 
