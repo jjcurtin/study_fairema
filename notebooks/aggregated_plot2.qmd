@@ -196,6 +196,7 @@ r1 <-     df_race |>
             axis.line.x = element_blank(),
             axis.ticks.x = element_blank(),
             plot.margin = margin(1, 1, 1, 1, "pt"),
+            legend.text = element_text(size=7),
             legend.title=element_blank()) +
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
@@ -224,6 +225,7 @@ r2 <-     df_race |>
             axis.line.x = element_blank(),
             axis.ticks.x = element_blank(),
             plot.margin = margin(1, 1, 1, 1, "pt"),
+            legend.text = element_text(size=7),
             legend.title=element_blank()) + 
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
@@ -256,6 +258,7 @@ s1 <-     df_sex |>
             axis.line.x = element_blank(),
             axis.ticks.x = element_blank(),
             plot.margin = margin(1, 1, 1, 1, "pt"),
+            legend.text = element_text(size=7),
             legend.title=element_blank()) +
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
@@ -284,6 +287,7 @@ s2 <-     df_sex |>
             axis.line.x = element_blank(),
             axis.ticks.x = element_blank(),
             plot.margin = margin(1, 1, 1, 1, "pt"),
+            legend.text = element_text(size=7),
             legend.title=element_blank()) + 
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
@@ -319,6 +323,7 @@ i1 <-     df_income |>
             axis.line.x = element_blank(),
             axis.ticks.x = element_blank(),
             plot.margin = margin(1, 1, 1, 1, "pt"),
+            legend.text = element_text(size=7),
             legend.title=element_blank()) +
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
@@ -347,6 +352,7 @@ i2 <-     df_income |>
             axis.line.x = element_blank(),
             axis.ticks.x = element_blank(),
             plot.margin = margin(1, 1, 1, 1, "pt"),
+            legend.text = element_text(size=7),
             legend.title=element_blank()) + 
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
@@ -382,6 +388,7 @@ a1 <-     df_age |>
             axis.line.x = element_blank(),
             axis.ticks.x = element_blank(),
             plot.margin = margin(1, 1, 1, 1, "pt"),
+            legend.text = element_text(size=7),
             legend.title=element_blank()) +
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
@@ -410,6 +417,7 @@ a2 <-     df_age  |>
             axis.line.x = element_blank(),
             axis.ticks.x = element_blank(),
             plot.margin = margin(1, 1, 1, 1, "pt"),
+            legend.text = element_text(size=7),
             legend.title=element_blank()) + 
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
