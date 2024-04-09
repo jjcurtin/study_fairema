@@ -67,7 +67,7 @@
   body
 ) = {
   // Set the body font.
-  set text(font: "STIX Two Text", size: 16pt)
+  set text(font: "Arial", size: 16pt)
   let sizes = size.split("x")
   let width = int(sizes.at(0)) * 1in
   let height = int(sizes.at(1)) * 1in
@@ -96,7 +96,7 @@
 
   // Configure lists.
   set enum(indent: 10pt, body-indent: 9pt)
-  set list(indent: 10pt, body-indent: 9pt)
+  set list(marker:[●], indent: 10pt, body-indent: 9pt)
 
   // Configure headings.
   set heading(numbering: none)
@@ -125,7 +125,7 @@
       #line(length: 100%)
     ] else if it.level == 2 [
       // Second-level headings are run-ins.
-      #set text(style: "italic")
+      #set text(weight: "bold")
       #v(32pt, weak: true)
       #if it.numbering != none {
         numbering("i.", deepest)
@@ -152,7 +152,7 @@
       row-gutter: 50pt,
       image(univ_logo, width: univ_logo_scale),
       text(title_font_size, title + "\n\n") + 
-      text(authors_font_size, emph(authors) + 
+      text(authors_font_size, authors + 
           "   (" + departments + ") "),
     )
   )
