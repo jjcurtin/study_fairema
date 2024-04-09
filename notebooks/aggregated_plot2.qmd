@@ -176,6 +176,7 @@ df <- mak_df_plot(df)
 
 ### Construct Plots
 
+
 ```{r race}
 
 sig_marks <- c("", "*", "**", "***", "")
@@ -199,7 +200,7 @@ r1 <-     df_race |>
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
       guides(fill=guide_legend(nrow=2, byrow=TRUE)) +
-      geom_text(aes(label = sig, y = 0), color = "blue", size = 7)+ theme(legend.position="none")+
+      geom_text(aes(label = sig, y = 0), color = "blue", size = 7)+ 
   theme(
     panel.background = element_rect(fill='transparent'), #transparent panel bg
     plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
@@ -227,7 +228,7 @@ r2 <-     df_race |>
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
       guides(fill=guide_legend(nrow=2, byrow=TRUE)) +
-      geom_text(aes(label = sig, y = 0), color = "blue", size = 7)+ theme(legend.position="none")+
+      geom_text(aes(label = sig, y = 0), color = "blue", size = 7)+ 
   theme(
     panel.background = element_rect(fill='transparent'), #transparent panel bg
     plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
@@ -237,14 +238,10 @@ r2 <-     df_race |>
     legend.box.background = element_rect(fill='transparent') #transparent legend panel
   )
 
-
+r <- ggarrange(r1, r2, ncol = 1, common.legend = TRUE, legend = "bottom")
 ```
 
-
 ```{r sex}
-
-
-
 
 s1 <-     df_sex |> 
       filter(metrics %in% c("auROC", "auPR")) |> 
@@ -263,7 +260,7 @@ s1 <-     df_sex |>
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
       guides(fill=guide_legend(nrow=2, byrow=TRUE)) +
-      geom_text(aes(label = sig, y = 0), color = "blue", size = 7)+ theme(legend.position="none")+
+      geom_text(aes(label = sig, y = 0), color = "blue", size = 7)+
   theme(
     panel.background = element_rect(fill='transparent'), #transparent panel bg
     plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
@@ -291,7 +288,7 @@ s2 <-     df_sex |>
       scale_fill_manual(values = c("#6CAA2F", "#C23E28")) +
       labs(x = NULL) +
       guides(fill=guide_legend(nrow=2, byrow=TRUE)) +
-      geom_text(aes(label = sig, y = 0), color = "blue", size = 7)+ theme(legend.position="none")+
+      geom_text(aes(label = sig, y = 0), color = "blue", size = 7)+ 
   theme(
     panel.background = element_rect(fill='transparent'), #transparent panel bg
     plot.background = element_rect(fill='transparent', color=NA), #transparent plot bg
@@ -302,15 +299,12 @@ s2 <-     df_sex |>
   )
 
 
-
+s <- ggarrange(s1, s2, ncol = 1, common.legend = TRUE, legend = "bottom")
 
 ```
 
 
 ```{r income}
-
-
-
 
 i1 <-     df_income |> 
       filter(metrics %in% c("auROC", "auPR")) |> 
@@ -368,15 +362,12 @@ i2 <-     df_income |>
   )
 
 
-
+i <- ggarrange(i1, i2, ncol = 1, common.legend = TRUE, legend = "bottom")
 
 ```
 
 
 ```{r age}
-
-
-
 
 a1 <-     df_age |> 
       filter(metrics %in% c("auROC", "auPR")) |> 
@@ -434,8 +425,20 @@ a2 <-     df_age  |>
   )
 
 
+a <- ggarrange(a1, a2, ncol = 1, common.legend = TRUE, legend = "bottom")
 
+```
 
+```{r}
+sr <- ggarrange(
+  annotate_figure(r, top = text_grob("Race", face = "bold")),
+  annotate_figure(s, top = text_grob("Sex", face = "bold"))
+)
+
+ia <- ggarrange(
+  annotate_figure(i, top = text_grob("Income", face = "bold")),
+  annotate_figure(a, top = text_grob("Age", face = "bold"))
+)
 ```
 
 ```{r}
@@ -453,6 +456,8 @@ ggsave("_presentations/poster1/images/barplot_income1.png", i1,  bg="transparent
 ggsave("_presentations/poster1/images/barplot_income2.png", i2, bg="transparent", width = gg_width, height = gg_width)
 ggsave("_presentations/poster1/images/barplot_age1.png", a1,  bg="transparent", width = gg_width, height = gg_width)
 ggsave("_presentations/poster1/images/barplot_age2.png", a2, bg="transparent", width = gg_width, height = gg_width)
+ggsave("_presentations/poster1/images/barplot_sex_race.png", sr, bg="transparent", width = gg_width, height = gg_width)
+ggsave("_presentations/poster1/images/barplot_income_age.png", ia, bg="transparent", width = gg_width, height = gg_width)
 
 legend <- get_legend(
 r1 + theme(legend.position="bottom")
