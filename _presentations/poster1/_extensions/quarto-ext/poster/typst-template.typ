@@ -95,8 +95,8 @@
   show math.equation: set block(spacing: 0.65em)
 
   // Configure lists.
-  set enum(indent: 10pt, body-indent: 9pt)
-  set list(marker:[●], indent: 10pt, body-indent: 9pt)
+  set enum(indent: 20pt, body-indent: 18pt)
+  set list(marker:[●], indent: 20pt, body-indent: 18pt)
 
   // Configure headings.
   set heading(numbering: none)
